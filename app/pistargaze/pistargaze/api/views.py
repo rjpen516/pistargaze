@@ -12,6 +12,8 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
 
+from .serializer import CommandSerializer
+
 
 class UtilsPower(APIView):
 	serializer_class = CommandSerializer
