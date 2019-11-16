@@ -21,7 +21,7 @@ class UtilsPower(APIView):
 	def post(self, request, format=None):
 
 		serializer =CommandSerializer(data=request.data)
-
+		#print(serializer.data)
 		if serializer.is_valid():
 
 			command = serializer.data['command']
@@ -36,7 +36,7 @@ class UtilsPower(APIView):
 
 
 
-				subprocess.run(["sudo","shutdown", "-h", output])
+				subprocess.run(["shutdown", "-h", output])
 
 				return Response('', status=status.HTTP_202_ACCEPTED)
 		return Response('', status=status.HTTP_400_BAD_REQUEST)
