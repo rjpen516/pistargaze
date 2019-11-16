@@ -1,0 +1,14 @@
+[Unit]
+Description=Shutdown Monitor
+
+
+[Service]
+Environment=DISPLAY=:0.0
+Type=simple
+ExecStart=/bin/bash /data/pistargaze/pi/shutdown-watcher.sh
+Restart=on-abort
+User=pi
+Group=pi
+
+[Install]
+WantedBy=graphical.target
