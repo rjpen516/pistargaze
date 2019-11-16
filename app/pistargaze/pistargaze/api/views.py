@@ -36,7 +36,9 @@ class UtilsPower(APIView):
 
 
 
-				subprocess.run(["shutdown", "-h", output])
+				file = open("/shutdown_signal","w+")
+				file.write("true")
+				file.close()
 
 				return Response('', status=status.HTTP_202_ACCEPTED)
 		return Response('', status=status.HTTP_400_BAD_REQUEST)
