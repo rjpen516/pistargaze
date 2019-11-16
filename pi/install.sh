@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt-get update
-apt-get install -y libffi-dev
+apt-get install -y libffi-dev inotify-tools
 
 sudo apt-get install apt-transport-https ca-certificates software-properties-common -y
 curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
