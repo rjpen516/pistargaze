@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "pistargaze.users.apps.UsersConfig",
+    "pistargaze.api.apps.ApiConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
