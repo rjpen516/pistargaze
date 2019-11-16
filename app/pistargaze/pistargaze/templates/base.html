@@ -83,7 +83,17 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+        System Utilities:
+<form action="/api/command/power" method="post">
+    <input type="hidden" value="0" name="param" />
+    <input type="hidden" value="shutdown" name="command" />
+    <input type="submit" value="shutdown "> Shutdown </input>
+</form>
+<form action="/api/command/power" method="post">
+    <input type="hidden" value="0" name="param" />
+    <input type="hidden" value="restart" name="command" />
+    <input type="submit" value="shutdown "> Restart </input>
+</form>
       {% endblock content %}
 
     </div> <!-- /container -->
