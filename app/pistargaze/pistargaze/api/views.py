@@ -38,3 +38,5 @@ class UtilsPower(APIView):
 
 				subprocess.run(["sudo","shutdown", "-h", output])
 
+				return Response('', status=status.HTTP_202_ACCEPTED)
+    	return Response('', status=status.HTTP_400_BAD_REQUEST)
