@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
 
-from .serializer import CommandSerializer
+from .serializers import CommandSerializer
 
 
 class UtilsPower(APIView):
