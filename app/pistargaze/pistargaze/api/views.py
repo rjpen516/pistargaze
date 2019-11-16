@@ -34,5 +34,5 @@ class UtilsPower(APIView):
 
 
 
-				subprocess.run(["shutdown", "-h", output])
+				subprocess.run(["sudo","shutdown", "-h", output])
 

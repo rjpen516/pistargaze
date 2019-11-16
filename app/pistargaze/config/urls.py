@@ -15,6 +15,7 @@ urlpatterns = [
     # User management
     path("users/", include("pistargaze.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    url(r'^api/', include('pistargaze.api.urls'), name='API'),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
