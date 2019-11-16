@@ -36,7 +36,7 @@ class UtilsPower(APIView):
 
 
 
-				file = open("/shutdown_signal","w+")
+				file = open("/shutdown_signal/signal","w+")
 				file.write("true")
 				file.close()
 
