@@ -37,7 +37,20 @@ class UtilsPower(APIView):
 
 
 				file = open("/shutdown_signal/signal","w+")
-				file.write("true")
+				file.write("shutdown")
+				file.close()
+
+				return Response('', status=status.HTTP_202_ACCEPTED)
+
+			elif command == "restart":
+				output = "now"
+				if int(param) > 0:
+					output = str(param)
+
+
+
+				file = open("/shutdown_signal/signal","w+")
+				file.write("restart")
 				file.close()
 
 				return Response('', status=status.HTTP_202_ACCEPTED)
