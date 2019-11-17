@@ -12,4 +12,4 @@ class GPSSerializer(serializers.Serializer):
 	latitude = serializers.FloatField()
 	lock_fixed = serializers.BooleanField()
 	datetime = serializers.DateTimeField()
-	
+

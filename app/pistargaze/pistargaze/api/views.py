@@ -15,6 +15,7 @@ from rest_framework import generics
 from .serializers import CommandSerializer, GPSSerializer
 
 import gpsd
+import json
 
 
 class Position(APIView):
@@ -24,9 +25,9 @@ class Position(APIView):
 		packet = gpsd.get_current()
 		loc = packet.position()
 		time = packet.get_time()
-		data = GPSSerializer(longitude=loc[0], latitude=loc[1], lock_fixed = True)
+		data = {'longitude':loc[0], 'latitude':loc[1], 'lock_fixed':True, 'datetime': time}
 
-		return Response(data)
+		return Response(json.dumps(data))
 
 
 class UtilsPower(APIView):
