@@ -97,6 +97,8 @@ class GpsResponse(object):
         last_tpv = packet['tpv'][-1]
         last_sky = packet['sky'][-1]
 
+        print(last_sky['satellites'])
+
         if 'satellites' in last_sky:
             result.sats = len(last_sky['satellites'])
             result.sats_valid = len(
