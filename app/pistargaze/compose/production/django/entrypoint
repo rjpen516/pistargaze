@@ -5,6 +5,8 @@ set -o pipefail
 set -o nounset
 
 
+#start local services for GPS
+gpsd -n -G -b /dev/ttyUSB0
 
 # N.B. If only .env files supported variable expansion...
 export CELERY_BROKER_URL="${REDIS_URL}"
