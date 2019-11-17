@@ -42,7 +42,7 @@ RUN chmod +x /start-flower
 
 
 COPY ./libs/gpsd-py3 /tmp
-RUN python3 /temp/gpsd-py3/setup.py install 
+RUN python3 /tmp/gpsd-py3/setup.py install 
 
 WORKDIR /app
 
