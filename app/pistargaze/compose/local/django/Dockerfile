@@ -14,7 +14,7 @@ RUN apk update \
   && apk add gettext \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
   && apk add postgresql-client \
-  && apk add gpsd gpsd-clients
+  && apk add gpsd gpsd-clients 
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
@@ -39,6 +39,10 @@ RUN chmod +x /start-celerybeat
 COPY ./compose/local/django/celery/flower/start /start-flower
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
+
+
+COPY ./libs/gpsd-py3 /tmp
+RUN python3 /temp/gpsd-py3/setup.py install 
 
 WORKDIR /app
 
