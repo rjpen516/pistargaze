@@ -27,7 +27,7 @@ class Position(APIView):
 		time = packet.get_time()
 		data = {'longitude':loc[0], 'latitude':loc[1], 'lock_fixed':True, 'datetime': time.strftime("%m/%d/%Y, %H:%M:%S")}
 
-		return Response(json.dumps(data))
+		return Response(data)
 
 
 class UtilsPower(APIView):
