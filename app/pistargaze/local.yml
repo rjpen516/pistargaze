@@ -7,7 +7,7 @@ volumes:
 services:
   django: &django
     privileged: true #this is bad, TODO: find a real way of allowing commands to run
-    #snetwork_mode: "host"
+    #network_mode: "host"
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
@@ -17,6 +17,7 @@ services:
     volumes:
       - .:/app
       - /var/run/shutdown_signal:/shutdown_signal
+      - /dev/bus/usb:/dev/bus/usb
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres

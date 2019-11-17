@@ -12,7 +12,21 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
 
-from .serializers import CommandSerializer
+from .serializers import CommandSerializer, GPSSerializer
+
+import gpsd
+
+
+class Position(APIView):
+	serializer_class = GPSSerializer
+	def get(self, request, format=None):
+		gpsd.connect()
+		packet = gpsd.get_current()
+		loc = packet.position()
+		time = packet.get_time()
+		data = GPSSerializer(longitude=loc[0], latitude=loc[1], lock_fixed = True)
+
+		return Response(data)
 
 
 class UtilsPower(APIView):
