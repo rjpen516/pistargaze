@@ -41,7 +41,7 @@ RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
 
-COPY ./libs/gpsd-py3/setup.py /tmp/gpsd-py3/
+COPY ./libs/gpsd-py3/setup.py /tmp/gpsd-py3/setup.py
 COPY ./libs/gpsd-py3/gpsd/__init__.py /tmp/gpsd-py3/gpsd/__init__.py
 RUN python3 /tmp/gpsd-py3/setup.py install 
 
