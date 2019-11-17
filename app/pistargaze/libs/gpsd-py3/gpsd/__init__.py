@@ -83,6 +83,7 @@ class GpsResponse(object):
         self.climb = 0
         self.time = ''
         self.error = {}
+        self.sat_data = []
 
     @classmethod
     def from_json(cls, packet):
@@ -97,7 +98,7 @@ class GpsResponse(object):
         last_tpv = packet['tpv'][-1]
         last_sky = packet['sky'][-1]
 
-        print(last_sky['satellites'])
+        return result.sat_data = last_sky['satellites']
 
         if 'satellites' in last_sky:
             result.sats = len(last_sky['satellites'])
@@ -131,6 +132,8 @@ class GpsResponse(object):
             result.error['v'] = last_tpv['epv'] if 'epv' in last_tpv else 0
 
         return result
+
+
 
     def position(self):
         """ Get the latitude and longtitude as tuple.
@@ -213,6 +216,10 @@ class GpsResponse(object):
         if self.mode < 2:
             raise NoFixError("Needs at least 2D fix")
         return "http://www.openstreetmap.org/?mlat={}&mlon={}&zoom=15".format(self.lat, self.lon)
+
+
+    def get_sat(self):
+        return self.sat_data
 
     def get_time(self, local_time=False):
         """ Get the GPS time
