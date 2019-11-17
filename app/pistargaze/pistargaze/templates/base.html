@@ -49,6 +49,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'utils' %}">Utils</a>
+            </li>
             {% if request.user.is_authenticated %}
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
@@ -83,17 +86,7 @@
       {% endif %}
 
       {% block content %}
-        System Utilities:
-<form action="/api/command/power" method="post">
-    <input type="hidden" value="0" name="param" />
-    <input type="hidden" value="shutdown" name="command" />
-    <input type="submit" value="Shutdown" />
-</form>
-<form action="/api/command/power" method="post">
-    <input type="hidden" value="0" name="param" />
-    <input type="hidden" value="restart" name="command" />
-    <input type="submit" value="Restart" /> 
-</form>
+
       {% endblock content %}
 
     </div> <!-- /container -->
