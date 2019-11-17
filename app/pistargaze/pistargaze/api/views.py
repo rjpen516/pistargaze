@@ -26,7 +26,7 @@ class Position(APIView):
 		loc = packet.position()
 		time = packet.get_time()
 		satdata = packet.get_sat()
-		data = {'satdata': '','longitude':loc[0], 'latitude':loc[1], 'lock_fixed':True, 'datetime': time.strftime("%m/%d/%Y, %H:%M:%S")}
+		data = {'satdata': satdata,'longitude':loc[0], 'latitude':loc[1], 'lock_fixed':True, 'datetime': time.strftime("%m/%d/%Y, %H:%M:%S")}
 
 		return Response(data)
 
