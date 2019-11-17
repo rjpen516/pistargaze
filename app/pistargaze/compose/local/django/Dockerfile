@@ -41,8 +41,7 @@ RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
 
-COPY ./libs/gpsd-py3/setup.py /tmp/gpsd-py3/setup.py
-COPY ./libs/gpsd-py3/gpsd/__init__.py /tmp/gpsd-py3/gpsd/__init__.py
+COPY ./libs/gpsd-py3/ /tmp/gpsd-py3/
 RUN python3 /tmp/gpsd-py3/setup.py install 
 
 WORKDIR /app
