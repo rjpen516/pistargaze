@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block content %}
         System Utilities:
 <form action="/api/command/power" method="post">
     <input type="hidden" value="0" name="param" />
@@ -11,3 +11,4 @@
     <input type="hidden" value="restart" name="command" />
     <input type="submit" value="Restart" /> 
 </form>
+{% endblock %}
