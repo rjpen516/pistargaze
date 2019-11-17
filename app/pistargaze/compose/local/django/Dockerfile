@@ -14,6 +14,7 @@ RUN apk update \
   && apk add gettext \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
   && apk add postgresql-client
+  && apk add gpsd gpsd-clients
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
