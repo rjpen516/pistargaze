@@ -4,11 +4,10 @@
 {{ block.super }}
 <script type="text/javascript">
 	$( document ).ready(function() {
-$.ajax({
-  dataType: 'json',
-  url: '/api/gps',
-  success: function (data) {
-  document.getElementById("gps_fix").innerHTML = data['lock_fixed']
+
+function updateGPS(data)
+{
+	  document.getElementById("gps_fix").innerHTML = data['lock_fixed']
   document.getElementById("gps_long").innerHTML = data['longitude']
   document.getElementById("gps_lat").innerHTML = data['latitude']
 
@@ -19,6 +18,18 @@ $.ajax({
   }
 
   document.getElementById("sat_info").innerHTML = list;
+
+}
+
+
+
+
+$.ajax({
+  dataType: 'json',
+  url: '/api/gps',
+  success: function (data) {
+
+  	updateGPS(data);
 
 
 
