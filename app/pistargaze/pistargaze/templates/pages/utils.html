@@ -1,4 +1,20 @@
 {% extends "base.html" %}
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript">
+$.ajax({
+  dataType: 'json',
+  url: '/api/gps',
+  success: function (data) {
+  console.log(data);
+}
+});
+</script>
+
+{% endblock %}
+
+
 {% block content %}
 <div>
         System Utilities:
@@ -19,15 +35,6 @@
 
 
 
-<script type="text/javascript">
-$.ajax({
-  dataType: 'json',
-  url: '/api/gps',
-  success: function (data) {
-  console.log(data);
-}
-});
-</script>
 
 <div>
 
