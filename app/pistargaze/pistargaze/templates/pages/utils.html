@@ -16,12 +16,27 @@
 
 
 
+
+
+
+<javascript>
+	$(document).ready(function() {
+$.ajax({
+  dataType: 'json',
+  url: '/api/gps',
+  success: function (data) {
+  console.log(data);
+}
+});
+});
+</javascript>
+
 <div>
 
 GPS Data: <br>
-Fix: <br>
-Longitude: <br> 
-Lattidue: <br>
+Fix: <span class='gps_fix'> </span> <br>
+Longitude: <span class='gps_fix'> </span> <br> 
+Lattidue: <span class='gps_fix'> </span> <br>
 
 
 Sats Information:<br>
