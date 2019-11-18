@@ -45,6 +45,9 @@ WORKDIR /tmp/gpsd-py3
 COPY ./libs/gpsd-py3/ /tmp/gpsd-py3/
 RUN python3 setup.py install 
 
+
+RUN apk add git
+
 WORKDIR /tmp/
 RUN git clone https://github.com/seeing-things/point.git
 WORKDIR /tmp/point
