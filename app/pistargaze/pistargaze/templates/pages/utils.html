@@ -15,7 +15,7 @@ $.ajax({
   var list = ""
   for(sat in data['satdata'])
   {
-  	list += "<li> " + sat + "</li>";
+  	list += "<li> " + sat + " : " + data['saddata'][sat]+"</li>";
   }
 
   document.getElementById("sat_info").innerHTML = list;
