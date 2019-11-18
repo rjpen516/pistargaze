@@ -5,6 +5,9 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 
+
+
+
 function updateGPS(data)
 {
 	  document.getElementById("gps_fix").innerHTML = data['lock_fixed']
@@ -21,8 +24,8 @@ function updateGPS(data)
 
 }
 
-
-
+function updateGPSRest()
+{
 
 $.ajax({
   dataType: 'json',
@@ -35,6 +38,10 @@ $.ajax({
 
 }
 });
+}
+
+window.setInterval(updateGPSRest,1000);
+
 });
 </script>
 
