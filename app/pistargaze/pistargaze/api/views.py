@@ -28,7 +28,7 @@ class Position(APIView):
 			time = packet.get_time()
 			satdata = packet.get_sat()
 			data = {'satdata': satdata,'longitude':loc[0], 'latitude':loc[1], 'lock_fixed':True, 'datetime': time.strftime("%m/%d/%Y, %H:%M:%S")}
-		except Exception e:
+		except Exception:
 			data = {'satdata': [],'longitude':0, 'latitude':0, 'lock_fixed':False, 'datetime': ""}
 
 
