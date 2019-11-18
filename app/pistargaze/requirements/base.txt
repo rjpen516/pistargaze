@@ -24,4 +24,3 @@ coreapi==2.3.3  # https://github.com/core-api/python-client
 
 #gps
 #gpsd-py3
-celestron-point

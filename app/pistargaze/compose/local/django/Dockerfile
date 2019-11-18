@@ -45,6 +45,11 @@ WORKDIR /tmp/gpsd-py3
 COPY ./libs/gpsd-py3/ /tmp/gpsd-py3/
 RUN python3 setup.py install 
 
+WORKDIR /tmp/
+RUN git clone https://github.com/seeing-things/point.git
+WORKDIR /tmp/point
+RUN python3 setup.py install
+
 WORKDIR /app
 
 ENTRYPOINT ["/entrypoint"]
