@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div>
         System Utilities:
 <form action="/api/command/power" method="post">
     <input type="hidden" value="0" name="param" />
@@ -11,4 +12,27 @@
     <input type="hidden" value="restart" name="command" />
     <input type="submit" value="Restart" /> 
 </form>
+</div>
+
+
+
+<div>
+
+GPS Data:
+Fix: 
+Longitude: 
+Lattidue:
+
+
+Sats Information:
+<div>
+<ul class='sat_info'>
+<li>Sat: None</li>
+</ul>
+</div>
+
+
+
+</div>
+
 {% endblock %}
