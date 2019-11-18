@@ -12,6 +12,15 @@ $.ajax({
   document.getElementById("gps_long").innerHTML = data['longitude']
   document.getElementById("gps_lat").innerHTML = data['latitude']
 
+  var list = ""
+  for(sat in data['satdata'])
+  {
+  	list += "<li> " + sat + "</li>";
+  }
+
+  document.getElementById("gps_sat").innerHTML = list;
+
+
 
 }
 });
@@ -52,7 +61,7 @@ Lattidue: <span id='gps_lat'> </span> <br>
 
 Sats Information:<br>
 <div>
-<ul class='sat_info'>
+<ul id='sat_info'>
 <li>Sat: None</li>
 </ul>
 </div>
