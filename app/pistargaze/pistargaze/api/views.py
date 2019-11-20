@@ -31,6 +31,8 @@ class CommandTelescope(APIView):
 			data = {'azimuth': azumuth, 'altitude': altitude}
 			return Response(data)
 
+		except Exception:
+			return Response({'azimuth': 0, 'altitude': 0})
 	def post(self, request, format=None):
 		pass
 
