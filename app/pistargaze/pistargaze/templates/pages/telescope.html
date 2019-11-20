@@ -29,12 +29,6 @@
 <script>
 		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 	// 
-	var joystick	= new VirtualJoystick({
-		container	: document.body,
-		strokeStyle	: 'cyan',
-		limitStickTravel: true,
-		stickRadius	: 120		
-	});
 	joystick.addEventListener('touchStartValidation', function(event){
 		var touch	= event.changedTouches[0];
 		if( touch.pageX < window.innerWidth/2 )	return false;
