@@ -2,7 +2,7 @@
 
 {% block javascript %}
 {{ block.super }}
-<script src="/static/js/joystick.js"></script> 
+
 
 
 
@@ -24,7 +24,7 @@
 		</style>
 
 <div id="joystick" class="joystick"> </div>
-
+<script src="/static/js/joystick.js"></script> 
 <script>
 		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 	// 
