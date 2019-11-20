@@ -34,7 +34,16 @@ class CommandTelescope(APIView):
 		except Exception:
 			return Response({'azimuth': 0, 'altitude': 0})
 	def post(self, request, format=None):
-		pass
+		serializer =MovementSerializer(data=request.data)
+
+		if serializer.is_valid():
+			rate = serializer.data['rate']
+			axis = serializer.data['axis']
+
+
+			settings.TELESCOPE.slew_fixed(axis,rate)
+
+			retrun Response({'status':"ok"})
 
 class Position(APIView):
 	serializer_class = GPSSerializer
