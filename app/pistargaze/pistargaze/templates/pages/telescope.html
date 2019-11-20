@@ -4,6 +4,27 @@
 {{ block.super }}
 <script src="/static/js/joystick.js"></script> 
 
+
+
+{% endblock %}
+
+
+
+{% block content %}
+<style>
+		#container {
+			width		: 100%;
+			height		: 100%;
+			overflow	: hidden;
+			padding		: 0;
+			margin		: 0;
+			-webkit-user-select	: none;
+			-moz-user-select	: none;
+		}
+		</style>
+
+<div id="joystick" class="joystick"> </div>
+
 <script>
 		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 	// 
@@ -35,25 +56,6 @@
 		console.log('fire')
 	});
 </script>
-
-{% endblock %}
-
-
-
-{% block content %}
-<style>
-		#container {
-			width		: 100%;
-			height		: 100%;
-			overflow	: hidden;
-			padding		: 0;
-			margin		: 0;
-			-webkit-user-select	: none;
-			-moz-user-select	: none;
-		}
-		</style>
-
-<div id="joystick" class="joystick"> </div>
 
 
 
