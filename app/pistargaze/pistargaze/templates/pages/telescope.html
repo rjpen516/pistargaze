@@ -40,7 +40,10 @@
 	// one on the right of the screen
 	var joystick	= new VirtualJoystick({
 		container	: document.getElementById("container"),
-		mouseSupport	: true
+		mouseSupport	: true,
+				stationaryBase	: true,
+		baseX		: 150,
+		baseY		: 150
 	});
 	joystick.addEventListener('touchStart', function(){
 				console.log('down')
