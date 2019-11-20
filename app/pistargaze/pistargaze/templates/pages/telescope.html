@@ -24,7 +24,7 @@
 		}
 		</style>
 
-<div id="joystick" class="container"> </div>
+<div id="container" class="container"> </div>
 <script src="/static/js/joystick.js"></script> 
 <script>
 		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
@@ -36,7 +36,7 @@
 	});
 	// one on the right of the screen
 	var joystick	= new VirtualJoystick({
-		container	: document.getElementById("joystick"),
+		container	: document.getElementById("container"),
 		mouseSupport	: true
 	});
 	joystick.addEventListener('touchStart', function(){
