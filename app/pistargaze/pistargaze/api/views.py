@@ -28,7 +28,7 @@ class CommandTelescope(APIView):
 		#try:
 		azimuth, altitude = settings.TELESCOPE.get_azalt()
 
-		data = {'azimuth': azumuth, 'altitude': altitude}
+		data = {'azimuth': azimuth, 'altitude': altitude}
 		return Response(data)
 
 		#except Exception:
