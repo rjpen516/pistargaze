@@ -43,7 +43,7 @@ class CommandTelescope(APIView):
 
 			settings.TELESCOPE.slew_fixed(axis,rate)
 
-			retrun Response({'status':"ok"})
+			return Response({'status':"ok"})
 
 class Position(APIView):
 	serializer_class = GPSSerializer
