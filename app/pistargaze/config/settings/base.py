@@ -3,6 +3,7 @@ Base settings to build other settings files upon.
 """
 
 import environ
+import point
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
@@ -286,3 +287,5 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+TELESCOPE = point.nexstar.NexStar('/dev/ttyUSB1')

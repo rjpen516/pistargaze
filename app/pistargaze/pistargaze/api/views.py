@@ -12,11 +12,27 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
 
-from .serializers import CommandSerializer, GPSSerializer
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer
 
 import gpsd
 import json
 
+from django.conf import settings
+
+
+
+class CommandTelescope(APIView):
+	serializer_class = MovementSerializer
+
+	def get(self,request, format=None):
+		try:
+			azimuth, altitude = settings.TELESCOPE.get_azalt()
+
+			data = {'azimuth': azumuth, 'altitude': altitude}
+			return Response(data)
+
+	def post(self, request, format=None):
+		pass
 
 class Position(APIView):
 	serializer_class = GPSSerializer

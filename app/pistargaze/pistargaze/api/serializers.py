@@ -13,3 +13,6 @@ class GPSSerializer(serializers.Serializer):
 	lock_fixed = serializers.BooleanField()
 	datetime = serializers.DateTimeField()
 
+class MovementSerializer(serializers.Serializer):
+	axis = serializers.RegexField("(az)|(alt)")
+	rate = serializers.IntegerField(max_value=9, min_value=-9)
