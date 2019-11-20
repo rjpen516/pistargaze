@@ -25,14 +25,14 @@ class CommandTelescope(APIView):
 	serializer_class = MovementSerializer
 
 	def get(self,request, format=None):
-		try:
-			azimuth, altitude = settings.TELESCOPE.get_azalt()
+		#try:
+		azimuth, altitude = settings.TELESCOPE.get_azalt()
 
-			data = {'azimuth': azumuth, 'altitude': altitude}
-			return Response(data)
+		data = {'azimuth': azumuth, 'altitude': altitude}
+		return Response(data)
 
-		except Exception:
-			return Response({'azimuth': 0, 'altitude': 0})
+		#except Exception:
+		#	return Response({'azimuth': 0, 'altitude': 0})
 	def post(self, request, format=None):
 		pass
 
