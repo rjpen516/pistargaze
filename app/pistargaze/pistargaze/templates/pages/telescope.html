@@ -12,6 +12,10 @@
 
 {% block content %}
 <style>
+	#joystick_container {
+		width: 300px;
+		float: left;
+	}
     #container {
 			width		: 300px;
 			height		: 300px;
@@ -19,7 +23,6 @@
 			overflow	: hidden;
 			padding		: 0;
 			margin		: 0;
-			float: left;
 			-webkit-user-select	: none;
 			-moz-user-select	: none;
 		}
@@ -36,6 +39,7 @@
 			-moz-user-select	: none;
 		}
 </style>
+<div id="joystick_container">
 <div id="container">
 </div>
 <div id="info">
@@ -46,7 +50,7 @@
     <span id="result">
     </span>
 </div>
-
+</div>
 
 <div id="telescope_settings">
 Test
