@@ -29,9 +29,6 @@
 
 		    #telescope_settings {
 			width		: 300px;
-			height		: 300px;
-			background-color: grey;
-			overflow	: hidden;
 			padding		: 0;
 			margin		: 0;
 			float: right;
@@ -53,7 +50,14 @@
 </div>
 
 <div id="telescope_settings">
-Test
+Telescope Location: <span id="tele_gps"></span><br>
+Telescope Time: <span id="tele_time"></span><br>
+<form action="/api/command/telescope/gpssync" method="post">
+    <input type="submit" value="Telescope GPS Sync" />
+</form>
+<br>
+Telescope ALT: <span id="tele_alt"></span><br>
+Telescope AZ: <span id="tele_az"></span><br>
 
 </div>
 
