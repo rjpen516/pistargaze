@@ -64,10 +64,28 @@ class Position(APIView):
 		return Response(data)
 
 
+class TelescopeStatus(APIView):
+	def get(self,request,format=None):
+		try:
+			settings.TELESCOPE_LOCK.acquire()
+
+			loc = settings.TELESCOPE.get_location()
+			time = settings.TELESCOPE.get_time()
+			settings.TELESCOPE_LOCK.release()
+
+			python_time = datetime.datetime.fromtimestamp(time)
+
+
+			data = {'latitude': loc[0], 'longitude': loc[1], 'datetime': python_time.strftime("%m/%d/%Y, %H:%M:%S")}
+
+		except Exception:
+			data = {'latitude': 0, 'longitude': 0, 'datetime': ""}
+
+		return Response(data)
+
 class SyncGPS(APIView):
 	def post(self, request, format=None):
-		#try:
-		if True:
+		try:
 			gpsd.connect()
 			packet = gpsd.get_current()
 			loc = packet.position()
@@ -82,8 +100,8 @@ class SyncGPS(APIView):
 			data = {'error': False, 'message': 'GPS Sync'}
 
 
-		#except Exception:
-		#	data = {'error': True, 'message': 'GPS Error'}
+		except Exception:
+			data = {'error': True, 'message': 'GPS Error'}
 
 		return Response(data)
 
