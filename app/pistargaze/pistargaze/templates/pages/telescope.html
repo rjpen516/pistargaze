@@ -54,10 +54,25 @@
 
 
 	setInterval(function(){
+
+			direction = ""
+
+			if(joystick.deltaX() > 20 && joystick.deltaX() > joystick.deltaY())
+			{
+				direction = "alt " + Math.ceil(joystick.deltaX() / (150 / 9))
+			}
+			else if(joystick.deltaY() > 20 && joystick.deltaY() > joystick.deltaY())
+			{
+				direction = "az " + Math.ceil(joystick.deltaY() / (150 / 9))
+			}
+
+
+
 				var outputEl	= document.getElementById('result');
 				outputEl.innerHTML	= '<b>Result:</b> '
 					+ ' dx:'+joystick.deltaX()
 					+ ' dy:'+joystick.deltaY()
+					+ 'rest: ' + direction
 					+ (joystick.right()	? ' right'	: '')
 					+ (joystick.up()	? ' up'		: '')
 					+ (joystick.left()	? ' left'	: '')
