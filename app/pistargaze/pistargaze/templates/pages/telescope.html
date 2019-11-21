@@ -77,23 +77,7 @@ $('syncgps#submitButton').click( function() {
 });
 
 
-setInterval(function(){
 
-				$.ajax({
-  type: "POST",
-  data: data,
-  url: '/api/command/telescope/status',
-  success: function (data) {
-  	
-   document.getElementById("tele_gps").innerHTML = "LAT: " + data['latitude'] + " LONG: " + data['longitude'];
-   document.getElementById("tele_time").innerHTML = data['datetime'];
-
-
-}
-});
-
-
-},1000);
 
 	</script>
 
@@ -278,6 +262,25 @@ $.ajax({
 },200);
 
 
+
+
+setInterval(function(){
+
+				$.ajax({
+  type: "POST",
+  data: data,
+  url: '/api/command/telescope/status',
+  success: function (data) {
+  	
+   document.getElementById("tele_gps").innerHTML = "LAT: " + data['latitude'] + " LONG: " + data['longitude'];
+   document.getElementById("tele_time").innerHTML = data['datetime'];
+
+
+}
+});
+
+
+},1000);
 
 
 </script>
