@@ -57,11 +57,11 @@
 
 			direction = ""
 
-			if((joystick.deltaX() > 20 || (joystick.deltaX() * -1) > 20) && joystick.deltaX() > joystick.deltaY())
+			if(Math.abs(joystick.deltaX()) > 20 && Math.abs(joystick.deltaX()) > Math.abs(joystick.deltaY()))
 			{
 				direction = "alt " + Math.ceil(joystick.deltaX() / (150 / 9))
 			}
-			else if((joystick.deltaY() > 20 || (joystick.deltaY() * -1) > 20) && joystick.deltaY() > joystick.deltaX())
+			else if(Math.abs(joystick.deltaY()) > 20 && Math.abs(joystick.deltaY()) > Math.abs(joystick.deltaX()))
 			{
 				direction = "az " + Math.ceil(joystick.deltaY() / (150 / 9))
 			}
