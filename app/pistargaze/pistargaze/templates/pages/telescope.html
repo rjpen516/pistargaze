@@ -49,6 +49,7 @@
 		}
 		return number;
 	}
+	direction = ""
 
 	// one on the right of the screen
 	var joystick	= new VirtualJoystick({
@@ -62,13 +63,13 @@
 				console.log('down')
 			})
 			joystick.addEventListener('touchEnd', function(){
-				console.log('up')
+				direction = "alt 0"
 			})
 
 
 	setInterval(function(){
 
-			direction = ""
+			
 
 			if(Math.abs(joystick.deltaX()) > 20 && Math.abs(joystick.deltaX()) > Math.abs(joystick.deltaY()))
 			{
