@@ -52,7 +52,7 @@
 <div id="telescope_settings">
 Telescope Location: <span id="tele_gps"></span><br>
 Telescope Time: <span id="tele_time"></span><br>
-<form action="/api/command/telescope/gpssync" method="post">
+<form action="/api/command/telescope/gpssync" id='syncgps' method="post">
     <input type="submit" value="Telescope GPS Sync" />
 </form>
 <br>
@@ -60,6 +60,20 @@ Telescope ALT: <span id="tele_alt"></span><br>
 Telescope AZ: <span id="tele_az"></span><br>
 
 </div>
+
+<script>
+
+
+$(document).ready(function(){
+   var $form = $('syncgps');
+   $form.submit(function(){
+      $.post($(this).attr('action'), $(this).serialize(), function(response){
+            // do something here on success
+      },'json');
+      return false;
+   });
+});
+	</script>
 
 
 
