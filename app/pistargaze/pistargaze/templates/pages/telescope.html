@@ -51,6 +51,7 @@
 	}
 	direction = "alt"
 	direction_value = 0
+	flip = false
 
 	// one on the right of the screen
 	var joystick	= new VirtualJoystick({
@@ -67,8 +68,8 @@
 				direction = "alt"
 				direction_value = 0
 	data = {
-		'axis': direction,
-		'rate': direction_value
+		'axis': 'alt',
+		'rate': 0
 	};
 
 				$.ajax({
@@ -77,8 +78,22 @@
   url: '/api/command/telescope/slew',
   success: function (data) {
 
-  	
 
+}
+});
+
+
+
+					data = {
+		'axis': 'az',
+		'rate': 0
+	};
+
+				$.ajax({
+  type: "POST",
+  data: data,
+  url: '/api/command/telescope/slew',
+  success: function (data) {
 
 
 }
@@ -92,11 +107,17 @@
 
 			if(Math.abs(joystick.deltaX()) > 20 && Math.abs(joystick.deltaX()) > Math.abs(joystick.deltaY()))
 			{
+
+				if direction == "alt"
+					flip = true
+
 				direction = "az"
 				direction_value = max(Math.ceil(joystick.deltaX() / (150 / 9)))
 			}
 			else if(Math.abs(joystick.deltaY()) > 20 && Math.abs(joystick.deltaY()) > Math.abs(joystick.deltaX()))
 			{
+				if direction == "az"
+					flip = true
 				direction = "alt"
 				direction_value = max(Math.ceil(joystick.deltaY() / (150 / 9)))
 			}
@@ -121,6 +142,49 @@
 
 setInterval(function(){
 
+
+	if(flip)
+	{
+
+	data = {
+		'axis': 'alt',
+		'rate': 0
+	};
+
+				$.ajax({
+  type: "POST",
+  data: data,
+  url: '/api/command/telescope/slew',
+  success: function (data) {
+
+
+}
+});
+
+
+
+					data = {
+		'axis': 'az',
+		'rate': 0
+	};
+
+				$.ajax({
+  type: "POST",
+  data: data,
+  url: '/api/command/telescope/slew',
+  success: function (data) {
+
+
+}
+});
+
+				flip =false;
+
+
+
+
+	}
+
 	data = {
 		'axis': direction,
 		'rate': direction_value
@@ -138,10 +202,11 @@ $.ajax({
 
 
 
+
 }
 });
 
-},1000);
+},200);
 
 
 
