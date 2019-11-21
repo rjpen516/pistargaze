@@ -4,6 +4,7 @@ Base settings to build other settings files upon.
 
 import environ
 import point
+import threading
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
@@ -289,3 +290,4 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 # ------------------------------------------------------------------------------
 
 TELESCOPE = point.nexstar.NexStar('/dev/ttyUSB1')
+TELESCOPE_LOCK = threading.Lock()
