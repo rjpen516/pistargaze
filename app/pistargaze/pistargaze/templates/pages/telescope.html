@@ -37,6 +37,19 @@
 		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
 
+
+	function max(number)
+	{
+		if(Math.abs(number) > 9)
+		{
+			if(number < 0)
+				return -9
+			else
+				return 9
+		}
+		return number;
+	}
+
 	// one on the right of the screen
 	var joystick	= new VirtualJoystick({
 		container	: document.getElementById("container"),
@@ -59,15 +72,15 @@
 
 			if(Math.abs(joystick.deltaX()) > 20 && Math.abs(joystick.deltaX()) > Math.abs(joystick.deltaY()))
 			{
-				direction = "alt " + Math.ceil(joystick.deltaX() / (150 / 9))
+				direction = "az " + max(Math.ceil(joystick.deltaX() / (150 / 9)))
 			}
 			else if(Math.abs(joystick.deltaY()) > 20 && Math.abs(joystick.deltaY()) > Math.abs(joystick.deltaX()))
 			{
-				direction = "az " + Math.ceil(joystick.deltaY() / (150 / 9))
+				direction = "alt " + max(Math.ceil(joystick.deltaY() / (150 / 9)))
 			}
 			else
 			{
-				direction = "stop"
+				direction = "alt 0"
 			}
 
 
