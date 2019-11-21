@@ -12,7 +12,7 @@
 
 {% block content %}
 <style>
-		#container {
+    #container {
 			width		: 300px;
 			height		: 300px;
 			background-color: grey;
@@ -22,19 +22,21 @@
 			-webkit-user-select	: none;
 			-moz-user-select	: none;
 		}
-		</style>
-
-<div id="container"> </div>
-		<div id="info">
-			Touch the screen and move
+</style>
+<div id="container">
+</div>
+<div id="info">
+    Touch the screen and move
 			-
 			works with mouse too as debug
-			<br/>
-			<span id="result"></span>
-		</div> 
-<script src="/static/js/joystick.js"></script> 
+    <br/>
+    <span id="result">
+    </span>
+</div>
+<script src="/static/js/joystick.js">
+</script>
 <script>
-		console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
+    console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
 
 
@@ -207,11 +209,5 @@ $.ajax({
 });
 
 },200);
-
-
-
 </script>
-
-
-
 {% endblock %}
