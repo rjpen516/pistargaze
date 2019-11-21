@@ -66,7 +66,8 @@ class Position(APIView):
 
 class SyncGPS(APIView):
 	def post(self, request, format=None):
-		try:
+		#try:
+		if True:
 			gpsd.connect()
 			packet = gpsd.get_current()
 			loc = packet.position()
@@ -81,8 +82,8 @@ class SyncGPS(APIView):
 			data = {'error': False, 'message': 'GPS Sync'}
 
 
-		except Exception:
-			data = {'error': True, 'message': 'GPS Error'}
+		#except Exception:
+		#	data = {'error': True, 'message': 'GPS Error'}
 
 		return Response(data)
 
