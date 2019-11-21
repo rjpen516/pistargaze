@@ -114,7 +114,7 @@ setInterval(function(){
 $.ajax({
   dataType: 'json',
   type: "POST",
-  json: data
+  json: data,
   url: '/api/command/telescope/slew',
   success: function (data) {
 
