@@ -76,7 +76,7 @@ class SyncGPS(APIView):
 			settings.TELESCOPE_LOCK.acquire()
 
 			settings.TELESCOPE.set_location(loc[0],loc[1])
-			settings.TELESCOPE.set_time(datetime.timestamp(time))
+			settings.TELESCOPE.set_time(datetime.datetime.timestamp(time))
 			settings.TELESCOPE_LOCK.release()
 
 			data = {'error': False, 'message': 'GPS Sync'}
