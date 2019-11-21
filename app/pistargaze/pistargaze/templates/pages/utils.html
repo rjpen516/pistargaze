@@ -16,6 +16,7 @@ function updateGPS(data)
     
   document.getElementById("gps_long").innerHTML = data['longitude'];
   document.getElementById("gps_lat").innerHTML = data['latitude'];
+  document.getElementById("gps_time").innerHTML = data['datetime'];
 
   var list = "";
   for(sat in data['satdata'])
@@ -82,6 +83,7 @@ GPS Data: <br>
 Fix: <span id='gps_fix'> </span> <br>
 Longitude: <span id='gps_long'> </span> <br> 
 Lattidue: <span id='gps_lat'> </span> <br>
+Time: <span id='gps_time'> </span><br>
 
 
 Sats Information:<br>

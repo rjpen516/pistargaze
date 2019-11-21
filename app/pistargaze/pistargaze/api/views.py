@@ -64,6 +64,25 @@ class Position(APIView):
 		return Response(data)
 
 
+class SyncGPS(APIView):
+	def post(self, request, format=None):
+		try:
+			gpsd.connect()
+			packet = gpsd.get_current()
+			loc = packet.position()
+			time = packet.get_time()
+
+			settings.TELESCOPE_LOCK.acquire()
+
+			settings.TELESCOPE.set_location(loc[0],loc[1])
+			settings.TELESCOPE.set_time(time)
+			settings.TELESCOPE_LOCK.release()
+
+
+		except Exception:
+			data = {'error': True, 'message': 'GPS Error'}
+
+
 class UtilsPower(APIView):
 	serializer_class = CommandSerializer
 
