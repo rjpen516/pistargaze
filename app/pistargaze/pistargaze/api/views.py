@@ -78,9 +78,13 @@ class SyncGPS(APIView):
 			settings.TELESCOPE.set_time(datetime.timestamp(time))
 			settings.TELESCOPE_LOCK.release()
 
+			data = {'error': False, 'message': 'GPS Sync'}
+
 
 		except Exception:
 			data = {'error': True, 'message': 'GPS Error'}
+
+		return Response(data)
 
 
 class UtilsPower(APIView):
