@@ -65,6 +65,10 @@
 			{
 				direction = "az " + Math.ceil(joystick.deltaY() / (150 / 9))
 			}
+			else
+			{
+				direction = "stop"
+			}
 
 
 
@@ -72,7 +76,7 @@
 				outputEl.innerHTML	= '<b>Result:</b> '
 					+ ' dx:'+joystick.deltaX()
 					+ ' dy:'+joystick.deltaY()
-					+ '<br> rest: ' + direction
+					+ '<br> rest: ' + direction + "<br>"
 					+ (joystick.right()	? ' right'	: '')
 					+ (joystick.up()	? ' up'		: '')
 					+ (joystick.left()	? ' left'	: '')
