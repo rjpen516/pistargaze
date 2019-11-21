@@ -69,7 +69,7 @@ $('syncgps#submitButton').click( function() {
     $.ajax({
         url: '/api/command/telescope/gpssync',
         type: 'post',
-        data: $('form#myForm').serialize(),
+        data: $('form#syncgps').serialize(),
         success: function(data) {
                    // ... do something with the data...
                  }
