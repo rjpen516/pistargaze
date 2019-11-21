@@ -272,7 +272,7 @@ setInterval(function(){
   url: '/api/command/telescope/status',
   success: function (data) {
   	
-   document.getElementById("tele_gps").innerHTML = "LAT: " + data['latitude'] + " LONG: " + data['longitude'];
+   document.getElementById("tele_gps").innerHTML = "<br>LAT: " + data['latitude'] + "<br> LONG: " + data['longitude'];
    document.getElementById("tele_time").innerHTML = data['datetime'];
 
 
