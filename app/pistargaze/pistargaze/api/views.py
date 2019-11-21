@@ -40,8 +40,9 @@ class CommandTelescope(APIView):
 			rate = serializer.data['rate']
 			axis = serializer.data['axis']
 
-
+			settings.TELESCOPE_LOCK.acquire()
 			settings.TELESCOPE.slew_fixed(axis,rate)
+			settings.TELESCOPE_LOCK.release()
 
 			return Response({'status':"ok"})
 
