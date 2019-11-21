@@ -61,7 +61,7 @@
 			{
 				direction = "alt " + Math.ceil(joystick.deltaX() / (150 / 9))
 			}
-			else if(joystick.deltaY() > 20 && joystick.deltaY() > joystick.deltaY())
+			else if(joystick.deltaY() > 20 && joystick.deltaY() > joystick.deltaX())
 			{
 				direction = "az " + Math.ceil(joystick.deltaY() / (150 / 9))
 			}
@@ -72,7 +72,7 @@
 				outputEl.innerHTML	= '<b>Result:</b> '
 					+ ' dx:'+joystick.deltaX()
 					+ ' dy:'+joystick.deltaY()
-					+ 'rest: ' + direction
+					+ '<br> rest: ' + direction
 					+ (joystick.right()	? ' right'	: '')
 					+ (joystick.up()	? ' up'		: '')
 					+ (joystick.left()	? ' left'	: '')
