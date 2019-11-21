@@ -66,6 +66,23 @@
 			joystick.addEventListener('touchEnd', function(){
 				direction = "alt"
 				direction_value = 0
+	data = {
+		'axis': direction,
+		'rate': direction_value
+	};
+
+				$.ajax({
+  type: "POST",
+  data: data,
+  url: '/api/command/telescope/slew',
+  success: function (data) {
+
+  	
+
+
+
+}
+});
 			})
 
 
