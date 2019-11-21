@@ -276,6 +276,8 @@ setInterval(function(){
 
    document.getElementById("tele_gps").innerHTML = "<br>LAT: " + data['latitude'] + "<br> LONG: " + data['longitude'];
    document.getElementById("tele_time").innerHTML = data['datetime'];
+   document.getElementById("tele_az").innerHTML = data['az'];
+   document.getElementById("tele_alt").innerHTML = data['alt'];
 }
 
 }

@@ -71,16 +71,17 @@ class TelescopeStatus(APIView):
 
 				loc = settings.TELESCOPE.get_location()
 				time = settings.TELESCOPE.get_time()
+				az,alt = settings.TELESCOPE.get_azalt()
 				settings.TELESCOPE_LOCK.release()
 
 				python_time = datetime.datetime.fromtimestamp(time)
 
 
-				data = {'latitude': loc[0], 'longitude': loc[1], 'datetime': python_time.strftime("%m/%d/%Y, %H:%M:%S")}
+				data = {'az':az,'alt':alt,'latitude': loc[0], 'longitude': loc[1], 'datetime': python_time.strftime("%m/%d/%Y, %H:%M:%S")}
 			else:
-				data = {'latitude': 0, 'longitude': 0, 'datetime': ""}
+				data = {'az':0, 'alt':0,'latitude': 0, 'longitude': 0, 'datetime': ""}
 		except Exception:
-			data = {'latitude': 0, 'longitude': 0, 'datetime': ""}
+			data = {'az':0, 'alt':0,'latitude': 0, 'longitude': 0, 'datetime': ""}
 
 		return Response(data)
 
