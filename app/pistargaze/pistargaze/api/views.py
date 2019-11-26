@@ -44,7 +44,7 @@ class CommandTelescope(APIView):
 
 			settings.TELESCOPE_LOCK.acquire()
 			settings.TELESCOPE.slew_fixed(axis,rate)
-			time.sleep(.2)
+			#time.sleep(.2)
 			settings.TELESCOPE_LOCK.release()
 
 			return Response({'status':"ok"})
@@ -75,7 +75,7 @@ class TelescopeStatus(APIView):
 				loc = settings.TELESCOPE.get_location()
 				time = settings.TELESCOPE.get_time()
 				az,alt = settings.TELESCOPE.get_azalt()
-				time.sleep(.2)
+				#time.sleep(.2)
 				settings.TELESCOPE_LOCK.release()
 
 				python_time = datetime.datetime.fromtimestamp(time)
