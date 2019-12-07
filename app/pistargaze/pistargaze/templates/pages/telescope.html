@@ -89,7 +89,8 @@ $('syncgps#submitButton').click( function() {
 <script>
     console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
-
+lastdirection = 0
+lastvalue = 0
 
 	function max(number)
 	{
@@ -237,6 +238,7 @@ setInterval(function(){
 
 
 	}
+	else if(direction != lastdirection && lastvalue != direction_value){
 
 	data = {
 		'axis': direction,
@@ -258,6 +260,7 @@ $.ajax({
 
 }
 });
+}
 
 },200);
 
