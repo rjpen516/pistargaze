@@ -289,5 +289,10 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-TELESCOPE = point.nexstar.NexStar('/dev/ttyUSB1')
-TELESCOPE_LOCK = threading.Lock()
+try:   
+    TELESCOPE = point.nexstar.NexStar('/dev/ttyUSB1')
+    TELESCOPE_LOCK = threading.Lock()
+except Exception:
+    print("error setting up telescope")
+    TELESCOPE = None
+    TELESCOPE_LOCK = threading.Lock()
