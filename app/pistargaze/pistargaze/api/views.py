@@ -6,13 +6,14 @@ import time
 
 
 
-import datetime
+from datetime import datetime
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
+import time
 
 from .serializers import CommandSerializer, GPSSerializer, MovementSerializer
 
@@ -23,18 +24,27 @@ from django.conf import settings
 
 
 
+
+
+
 class CommandTelescope(APIView):
 	serializer_class = MovementSerializer
 
 	def get(self,request, format=None):
 		try:
+			settings.TELESCOPE_LOCK.acquire()
 			azimuth, altitude = settings.TELESCOPE.get_azalt()
+			settings.TELESCOPE_LOCK.release()
+
 
 			data = {'azimuth': azimuth, 'altitude': altitude}
 			return Response(data)
 
-		except Exception:
+		except Exception as e:
+			print(e)
+			settings.TELESCOPE_LOCK.release()
 			return Response({'azimuth': 0, 'altitude': 0})
+
 	def post(self, request, format=None):
 		serializer =MovementSerializer(data=request.data)
 
@@ -70,21 +80,22 @@ class Position(APIView):
 class TelescopeStatus(APIView):
 	def get(self,request,format=None):
 		try:
-			if settings.TELESCOPE_LOCK.acquire(blocking=0):
+			settings.TELESCOPE_LOCK.acquire()
 
-				loc = settings.TELESCOPE.get_location()
-				time = settings.TELESCOPE.get_time()
-				az,alt = settings.TELESCOPE.get_azalt()
+
+			loc = settings.TELESCOPE.get_location()
+			time = settings.TELESCOPE.get_time()
+			az,alt = settings.TELESCOPE.get_azalt()
 				#time.sleep(.2)
-				settings.TELESCOPE_LOCK.release()
+			settings.TELESCOPE_LOCK.release()
 
-				python_time = datetime.datetime.fromtimestamp(time)
+			python_time = datetime.fromtimestamp(time)
 
 
-				data = {'az':az,'alt':alt,'latitude': loc[0], 'longitude': loc[1], 'datetime': python_time.strftime("%m/%d/%Y, %H:%M:%S")}
-			else:
-				data = {'az':0, 'alt':0,'latitude': 0, 'longitude': 0, 'datetime': ""}
-		except Exception:
+			data = {'az':az,'alt':alt,'latitude': loc[0], 'longitude': loc[1], 'datetime': python_time.strftime("%m/%d/%Y, %H:%M:%S")}
+		except Exception as e:
+			print(e)
+			settings.TELESCOPE_LOCK.release()
 			data = {'az':0, 'alt':0,'latitude': 0, 'longitude': 0, 'datetime': ""}
 
 		return Response(data)
@@ -100,13 +111,14 @@ class SyncGPS(APIView):
 			settings.TELESCOPE_LOCK.acquire()
 
 			settings.TELESCOPE.set_location(loc[0],loc[1])
-			settings.TELESCOPE.set_time(datetime.datetime.timestamp(time))
+			settings.TELESCOPE.set_time(datetime.timestamp(time))
 			settings.TELESCOPE_LOCK.release()
 
 			data = {'error': False, 'message': 'GPS Sync'}
 
 
 		except Exception:
+			settings.TELESCOPE_LOCK.release()
 			data = {'error': True, 'message': 'GPS Error'}
 
 		return Response(data)

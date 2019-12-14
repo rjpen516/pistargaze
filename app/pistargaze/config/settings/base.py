@@ -6,6 +6,8 @@ import environ
 import point
 import threading
 
+from pistargaze.utils.telescope import TelescopeRunner 
+
 ROOT_DIR = (
     environ.Path(__file__) - 3
 )  # (pistargaze/config/settings/base.py - 3 = pistargaze/)
@@ -289,10 +291,18 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 # Your stuff...
 # ------------------------------------------------------------------------------
 
+
+LOCAL_NON_PI = False
+
+if env("NON_PI_DEV"):
+    LOCAL_NON_PI = True
+
+
+
 try:   
-    TELESCOPE = point.nexstar.NexStar('/dev/ttyUSB1')
+    TELESCOPE = TelescopeRunner(LOCAL_NON_PI)
     TELESCOPE_LOCK = threading.Lock()
 except Exception:
     print("error setting up telescope")
-    TELESCOPE = None
+    TELESCOPE = TelescopeRunner(LOCAL_NON_PI)
     TELESCOPE_LOCK = threading.Lock()
