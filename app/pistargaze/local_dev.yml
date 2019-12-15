@@ -17,6 +17,7 @@ services:
     volumes:
       - .:/app
       - ./special/:/shutdown_signal
+      - ../../:/mnt/
 
     env_file:
       - ./.envs/.local/.django
