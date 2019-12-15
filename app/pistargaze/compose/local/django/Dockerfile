@@ -51,6 +51,7 @@ RUN apk add git unzip  build-base gcc cmake
 
 
 
+
 WORKDIR /tmp/
 RUN git clone https://github.com/seeing-things/point.git
 WORKDIR /tmp/point
