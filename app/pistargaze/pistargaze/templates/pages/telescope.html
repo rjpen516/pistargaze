@@ -275,7 +275,7 @@ setInterval(function(){
   success: function (data) {
   	
 
-  	if(data['latitude'] != 0){
+  	if(data['datetime'] != 0){
 
    document.getElementById("tele_gps").innerHTML = "<br>LAT: " + data['latitude'] + "<br> LONG: " + data['longitude'];
    document.getElementById("tele_time").innerHTML = data['datetime'];

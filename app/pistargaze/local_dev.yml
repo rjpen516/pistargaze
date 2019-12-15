@@ -17,6 +17,7 @@ services:
     volumes:
       - .:/app
       - ./special/:/shutdown_signal
+      - ../../:/mnt/
 
     env_file:
       - ./.envs/.local/.django
@@ -24,6 +25,9 @@ services:
     ports:
       - "8000:8000"
     command: /start
+
+    environment:
+    - NON_PI_DEV=TRUE
 
   postgres:
     build:
