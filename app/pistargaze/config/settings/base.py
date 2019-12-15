@@ -294,7 +294,7 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 
 LOCAL_NON_PI = False
 
-if env("NON_PI_DEV"):
+if env("NON_PI_DEV") == 'TRUE':
     LOCAL_NON_PI = True
 
 
