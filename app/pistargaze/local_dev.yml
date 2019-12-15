@@ -3,6 +3,7 @@ version: '3'
 volumes:
   local_postgres_data: {}
   local_postgres_data_backups: {}
+  astrometry_index: {}
 
 services:
   django: &django
@@ -28,6 +29,22 @@ services:
 
     environment:
     - NON_PI_DEV=TRUE
+
+  nova:
+    image: dm90/astrometry
+    ports:
+      - 8001:8000
+    volumes:
+      # Use one of the two mounting options to add index files:
+      # use this for a docker volume that contains index fiels (preferred):
+      - astrometry_index:/usr/local/astrometry/data
+      # alternatively, use this to mount the index files from a specific directory:
+      # - /Users/Dave/Desktop/astrometry:/usr/local/astrometry/data
+    restart: unless-stopped
+
+
+
+
 
   postgres:
     build:

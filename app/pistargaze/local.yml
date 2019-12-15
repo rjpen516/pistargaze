@@ -36,6 +36,19 @@ services:
     env_file:
       - ./.envs/.local/.postgres
 
+
+  nova:
+    image: dm90/astrometry:arm
+    ports:
+      - 8001:8000
+    volumes:
+      # Use one of the two mounting options to add index files:
+      # use this for a docker volume that contains index fiels (preferred):
+      - astrometry_index:/usr/local/astrometry/data
+      # alternatively, use this to mount the index files from a specific directory:
+      # - /Users/Dave/Desktop/astrometry:/usr/local/astrometry/data
+    restart: unless-stopped
+
   redis:
     image: redis:5.0
 
