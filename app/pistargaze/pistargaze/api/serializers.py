@@ -16,3 +16,8 @@ class GPSSerializer(serializers.Serializer):
 class MovementSerializer(serializers.Serializer):
 	axis = serializers.RegexField("(az)|(alt)")
 	rate = serializers.IntegerField(max_value=9, min_value=-9)
+
+
+
+class CaptureSerializer(serializers.Serializer):
+	subid = serializers.IntegerField(min_value=0)

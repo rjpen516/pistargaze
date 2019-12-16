@@ -31,7 +31,9 @@ services:
     - NON_PI_DEV=TRUE
 
   nova:
-    image: dm90/astrometry
+    build:
+      context: .
+      dockerfile: ./compose/local/nova/Dockerfile
     ports:
       - 8001:8000
     volumes:

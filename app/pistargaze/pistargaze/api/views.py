@@ -4,6 +4,8 @@ import subprocess
 
 import time
 
+import os
+
 
 
 from datetime import datetime
@@ -15,14 +17,17 @@ from rest_framework import permissions
 from rest_framework import generics
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer
 
 import gpsd
 import json
 
+
+from django.shortcuts import HttpResponse
 from django.conf import settings
 
-
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+import requests
 
 
 
@@ -164,3 +169,70 @@ class UtilsPower(APIView):
 
 				return Response('', status=status.HTTP_202_ACCEPTED)
 		return Response('', status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class CaptureLatest(APIView):
+	def get(self, request, format=None):
+
+
+		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb").read()
+		return HttpResponse(image_data,content_type="image/png")
+
+
+class CaptureAnalysis(APIView):
+	def get(self, request, format=None):
+
+
+		#in this method we will run our sky finder, and return out a job session id that we can query until the result is done. It will use the latest image in the capture queue 
+
+		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb")
+
+
+		#we gotta auth to our local version of nova 
+		request_json = {"publicly_visible": "y", "allow_modifications": "y", "allow_commercial_use": "y"}
+
+		multipart_data = MultipartEncoder( 
+ 	    fields={ 
+	     'request-json': json.dumps(request_json), 
+	     'file': ('image.jpg', image_data, 'application/octet-stream') 
+	    })   
+
+		response = requests.post("http://nova:8000/api/upload", data=multipart_data, headers={'Content-Type': multipart_data.content_type}) 
+		return_object = json.loads(response.text)
+
+		return Response({'result':'processing', 'subid': return_object['subid']})
+
+
+class CaptureData(APIView):
+
+	def get(self, request, format=None):
+
+		if request.query_params.get('subid') is not None:
+			subid = request.query_params.get('subid')
+
+			status = json.loads(requests.get("http://nova:8000/api/jobs/{0}".format(subid)).text)
+
+			if status['status'] == 'success':
+				objects_in_field = json.loads(requests.get("http://nova:8000/api/jobs/{0}/info".format(subid)).text)
+				annotations =  json.loads(requests.get("http://nova:8000/api/jobs/{0}/annotations".format(subid)).text)
+
+
+				images = {'annotated_image': 'http://localhost:8001/annotated_display/{0}'.format(subid), 
+						  }
+
+
+				output = {'success': True,
+						'objects_in_field': objects_in_field, 
+						'annotations': annotations, 
+						 'images': images}
+
+				return Response(json.dumps(output))
+			return Response(json.dumps(status))
+		return Response(json.dumps({'success': False, 'message': "invalid subid"}))
+
+
+
+
+
+

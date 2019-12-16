@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+{{ block.super }}
+
+
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<style>
+
+
+
+
+#video_preview{
+	width: 300px;
+	height: 310px;
+	float: left;
+}
+
+#control_buttons{
+	width:300px;
+	padding-left: 10px;
+	float: right;
+}
+
+#capture_container{
+	height:400px;
+	width:600px;
+}
+
+
+
+</style>
+
+
+<div id="capture_container">
+
+
+
+
+	<div id="control_buttons">
+		Control Camera Attributes: <br>
+		<button type="button" class="btn btn-primary">Capture</button>
+		<button type="button" class="btn btn-info">Analysis</button>
+		<button type="button" class="btn btn-info">Calabrate</button>
+	</div>
+
+
+
+	<div id="video_preview">
+		Video Preview - Last Update <span id="video_update">N/A</span>
+		<br>
+		<div id="video_preview_image">
+
+		<img id="image_capture" src="/api/capture/latest" height="300" width="300" />
+
+	</div>
+
+
+
+
+</div>
+
+
+{% endblock %}
+

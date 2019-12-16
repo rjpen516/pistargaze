@@ -8,5 +8,8 @@ urlpatterns = [
 	url(r'gps$', views.Position.as_view(), name='GPS'),
 	url(r'command/telescope/slew', views.CommandTelescope.as_view(), name='Slew'),
 	url(r'command/telescope/gpssync',views.SyncGPS.as_view(), name='GPSSync'),
-	url(r'command/telescope/status', views.TelescopeStatus.as_view(), name='TelescopeStatus')
+	url(r'command/telescope/status', views.TelescopeStatus.as_view(), name='TelescopeStatus'), 
+	url(r'capture/latest', views.CaptureLatest.as_view(), name='CaptureLatest'),
+	url(r'capture/analysis', views.CaptureAnalysis.as_view(), name='CaptureAnalysis'),
+	url(r'capture/data', views.CaptureData.as_view(), name='CaptureData'),
 ]
