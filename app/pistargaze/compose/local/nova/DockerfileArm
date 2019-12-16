@@ -1,0 +1,25 @@
+FROM dm90/astrometry@sha256:f792921eb3878c0d631ff34caf77e4f1a86f912fe6541e77674d22e2e356979e
+
+
+#RUN yum update
+RUN yum --assumeyes install patch
+#COPY ./compose/local/nova/api.py.patch /tmp/
+
+WORKDIR /astrometry.net/net
+
+#RUN patch -R api.py < /tmp/api.py.patch
+
+RUN rm /astrometry.net/net/api.py*
+COPY ./compose/local/nova/api.py /astrometry.net/net/api.py
+
+
+RUN rm /astrometry.net/net/models.py*
+COPY ./compose/local/nova/models.py /astrometry.net/net/models.py
+
+RUN rm /astrometry.net/net/process_submissions.py*
+COPY ./compose/local/nova/process_submissions.py /astrometry.net/net/process_submissions.py
+
+WORKDIR /
+ENTRYPOINT ["./docker-entrypoint.sh"]
+# start nova by default
+CMD ["nova"]
