@@ -3,6 +3,75 @@
 {% block javascript %}
 {{ block.super }}
 
+<script>
+
+
+
+var lastAnalsisId = -1;
+
+var data_loader_timer = null;
+
+	$( document ).ready(function() {
+$("#buttonCapture").click(function() {
+
+	$('#image_capture').attr("src", "/api/capture/latest");
+	console.log("Loading new image")
+
+
+});
+
+$("#buttonAnalysis").click(function() {
+
+	$('#log').append("Making request to start job<br>")
+	
+	$.ajax({
+        url: '/api/capture/analysis',
+        type: 'get',
+        success: function(data) {
+                   $('#log').append("Job started with id of " + JSON.stringify(data));
+
+                   lastAnalsisId = data['subid'];
+
+             data_loader_timer =      setInterval(function(){
+
+$.ajax({
+        url: '/api/capture/data?subid=' + lastAnalsisId,
+        type: 'get',
+        success: function(data) {
+
+        	
+        	obj = JSON.parse(data)
+        	if(obj['status'] == true)
+        	{
+        		$('#log').append("Clearning Timer");
+        		clearInterval(data_loader_timer);
+        	}
+			$('#log').append(JSON.stringify(data));
+
+
+        }});
+
+
+
+                   }, 1000);
+
+
+
+
+
+                 }
+    });
+
+
+});
+
+
+
+
+});
+
+
+</script>
 
 
 
@@ -33,6 +102,10 @@
 	height:400px;
 	width:600px;
 }
+#log{
+	width:300px;
+}
+
 
 
 
@@ -46,9 +119,11 @@
 
 	<div id="control_buttons">
 		Control Camera Attributes: <br>
-		<button type="button" class="btn btn-primary">Capture</button>
-		<button type="button" class="btn btn-info">Analysis</button>
-		<button type="button" class="btn btn-info">Calabrate</button>
+		<button id='buttonCapture' type="button" class="btn btn-primary">Capture</button> - Snap an image from the main camera <br>
+		<button id='buttonAnalysis' type="button" class="btn btn-info">Analysis</button> - See what was in the last capture <br>
+		<button id='buttonCalabrate' type="button" class="btn btn-info">Calabrate</button> - Update telescope position to last image captured <br>
+
+		<div id='log'></div>
 	</div>
 
 
@@ -66,6 +141,7 @@
 
 
 </div>
+
 
 
 {% endblock %}

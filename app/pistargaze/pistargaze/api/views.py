@@ -205,7 +205,7 @@ class CaptureAnalysis(APIView):
 		if 'subid' in return_object.keys():
 			return Response({'result':'processing', 'subid': return_object['subid']})
 		else:
-			return Response(return_object)
+			return Response(return_object,content_type="application/json")
 
 
 class CaptureData(APIView):
@@ -231,9 +231,9 @@ class CaptureData(APIView):
 						'annotations': annotations, 
 						 'images': images}
 
-				return Response(json.dumps(output))
-			return Response(json.dumps(status))
-		return Response(json.dumps({'success': False, 'message': "invalid subid"}))
+				return Response(output)
+			return Response(status)
+		return Response({'success': False, 'message': "invalid subid"}, content_type="application/json")
 
 
 
