@@ -199,8 +199,10 @@ class CaptureAnalysis(APIView):
 	    })   
 
 		response = requests.post("http://nova:8000/api/upload", data=multipart_data, headers={'Content-Type': multipart_data.content_type}) 
-
-		return_object = json.loads(response.text)
+		try:
+			return_object = json.loads(response.text)
+		except Exception:
+			return Response({'result':'pending'})
 
 		if 'subid' in return_object.keys():
 			return Response({'result':'processing', 'subid': return_object['subid']})
@@ -213,9 +215,18 @@ class CaptureData(APIView):
 	def get(self, request, format=None):
 
 		if request.query_params.get('subid') is not None:
-			subid = request.query_params.get('subid')
+			try:
+				subid = request.query_params.get('subid')
+				result = requests.get("http://nova:8000/api/jobs/{0}".format(subid))
+			except Exception:
+				return Response({'success': False, 'message': 'pending backend API', 'backend': result.text }) 
 
-			status = json.loads(requests.get("http://nova:8000/api/jobs/{0}".format(subid)).text)
+			if result.status_code == 404:
+				return Response({'success': False, 'message': 'pending'})
+
+			status = json.loads(result.text)
+
+				
 
 			if status['status'] == 'success':
 				objects_in_field = json.loads(requests.get("http://nova:8000/api/jobs/{0}/info".format(subid)).text)
@@ -232,7 +243,7 @@ class CaptureData(APIView):
 						 'images': images}
 
 				return Response(output)
-			return Response(status)
+			return Response({'success': False, 'message': 'solving'})
 		return Response({'success': False, 'message': "invalid subid"}, content_type="application/json")
 
 

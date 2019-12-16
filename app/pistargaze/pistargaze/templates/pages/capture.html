@@ -7,11 +7,150 @@
 
 
 
+
+
+
+
+	$( document ).ready(function() {
+
+
+/**************************************
+*****    Gobal Vars ********
+**************************************/
 var lastAnalsisId = -1;
 
 var data_loader_timer = null;
 
-	$( document ).ready(function() {
+
+
+/**************************************
+*****        Service Functions ********
+**************************************/
+
+//This function will manage calling an function with a ID every second, once it gets a result it will stop that function from working. It will run ever second to manage the registered functions
+
+var lastAnalsisId = -1;
+
+dataServiceInterval = null;
+dataServiceResult = false;
+lastResult = null;
+
+latestImageCapture = -1;
+
+dataRetrivelService = setInterval(function(){
+
+	if(lastAnalsisId != -1 && dataServiceInterval == null)
+	{
+		//we are going to start the service
+
+		dataServiceInterval = setInterval(data_service,1000)
+
+	}
+	else if(dataServiceResult)
+	{
+
+		clearInterval(dataServiceInterval);
+
+		lastAnalsisId = -1;
+		dataServiceResult = false;
+		dataServiceInterval = null;
+
+	}
+
+
+	//lets see if the image has been captured yet
+
+	if (latestImageCapture == -1)
+	{
+		$("#video_update").text("Not Captured");
+	}
+	else
+	{
+		//we update the display to the latest captured
+		$("#video_update").text("" + Math.floor((Date.now() - latestImageCapture)/1000)+ "s ago");
+	}
+
+
+},500);
+
+function data_service()
+{
+
+$.ajax({
+        url: '/api/capture/data?subid=' + lastAnalsisId,
+        type: 'get',
+        success: function(json) {
+
+        	
+        	$('#log').append(JSON.stringify(json) + "<br>");
+
+
+        	if(json['success'])
+        	{
+        		dataServiceResult = true;
+        		lastResult = json;
+        		//enable our annotaion image
+        		$("#analysisInput").removeAttr("disabled");
+        		$("#analysisInput").attr('checked', true);;
+;
+
+
+        		//load the new image for annoations
+        		$('#log').append("Updating Image to " + json['images']['annotated_image'] + "<br>");
+        		$('#image_capture').attr("src", json['images']['annotated_image']);
+        	}
+
+
+        }});
+
+
+}
+
+/**************************************
+*****  Click Functions         ********
+**************************************/
+
+$("#buttonCapture").click(function() {
+
+latestImageCapture = Date.now();
+
+});
+
+$("#analysisInput").change(function() {
+
+	if($("#analysisInput").is(":checked"))
+	{
+		$('#image_capture').attr("src", lastResult['images']['annotated_image']);
+
+	}
+	else
+	{
+		$('#image_capture').attr("src", "/api/capture/latest");
+	}
+
+
+
+
+});
+
+$("#buttonAnalysis").click(function() {
+
+$.ajax({
+        url: '/api/capture/analysis',
+        type: 'get',
+        success: function(json) {
+        	$('#log').text("");
+        	$('#log').append(JSON.stringify(json) + "<br>");
+        	lastAnalsisId = json['subid'];
+
+
+
+        }});
+
+
+
+});
+
 $("#buttonCapture").click(function() {
 
 	$('#image_capture').attr("src", "/api/capture/latest");
@@ -20,55 +159,9 @@ $("#buttonCapture").click(function() {
 
 });
 
-$("#buttonAnalysis").click(function() {
-
-	$('#log').append("Making request to start job<br>")
-	
-	$.ajax({
-        url: '/api/capture/analysis',
-        type: 'get',
-        success: function(data) {
-                   $('#log').append("Job started with id of " + JSON.stringify(data));
-
-                   lastAnalsisId = data['subid'];
-
-             data_loader_timer =      setInterval(function(){
-
-$.ajax({
-        url: '/api/capture/data?subid=' + lastAnalsisId,
-        type: 'get',
-        success: function(data) {
-
-        	
-        	obj = JSON.parse(data)
-        	if(obj['status'] == true)
-        	{
-        		$('#log').append("Clearning Timer");
-        		clearInterval(data_loader_timer);
-        	}
-			$('#log').append(JSON.stringify(data));
-
-
-        }});
-
-
-
-                   }, 1000);
-
-
-
-
-
-                 }
-    });
-
-
 });
 
 
-
-
-});
 
 
 </script>
@@ -104,6 +197,10 @@ $.ajax({
 }
 #log{
 	width:300px;
+	scroll-behavior: smooth;
+	height: 200px;
+	font-size: 8px;
+	overflow: scroll;
 }
 
 
@@ -133,7 +230,12 @@ $.ajax({
 		<br>
 		<div id="video_preview_image">
 
-		<img id="image_capture" src="/api/capture/latest" height="300" width="300" />
+		<img id="image_capture" src="" height="300" width="300" />
+
+		<div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="analysisInput" disabled=true>
+  <label class="custom-control-label" for="analysisInput">Show Analysis Overlay</label>
+</div>
 
 	</div>
 
