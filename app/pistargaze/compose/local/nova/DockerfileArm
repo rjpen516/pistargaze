@@ -2,7 +2,8 @@ FROM dm90/astrometry@sha256:f792921eb3878c0d631ff34caf77e4f1a86f912fe6541e77674d
 
 
 #RUN yum update
-RUN yum --assumeyes install patch
+RUN apt-get update
+RUN apt-get -y install patch
 #COPY ./compose/local/nova/api.py.patch /tmp/
 
 WORKDIR /astrometry.net/net
