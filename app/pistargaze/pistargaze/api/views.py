@@ -199,9 +199,13 @@ class CaptureAnalysis(APIView):
 	    })   
 
 		response = requests.post("http://nova:8000/api/upload", data=multipart_data, headers={'Content-Type': multipart_data.content_type}) 
+
 		return_object = json.loads(response.text)
 
-		return Response({'result':'processing', 'subid': return_object['subid']})
+		if 'subid' in return_object.keys():
+			return Response({'result':'processing', 'subid': return_object['subid']})
+		else:
+			return Response(return_object)
 
 
 class CaptureData(APIView):
