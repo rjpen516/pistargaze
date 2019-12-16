@@ -41,7 +41,9 @@ services:
 
 
   nova:
-    image: dm90/astrometry:arm
+    build:
+      context: .
+      dockerfile: ./compose/local/nova/DockerfileArm
     ports:
       - 8001:8000
     volumes:
