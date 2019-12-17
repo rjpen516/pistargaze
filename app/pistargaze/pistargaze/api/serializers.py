@@ -21,3 +21,12 @@ class MovementSerializer(serializers.Serializer):
 
 class CaptureSerializer(serializers.Serializer):
 	subid = serializers.IntegerField(min_value=0)
+
+
+
+class CaptureCalibrate(serializers.Serializer):
+	subid = serializers.IntegerField(min_value=0)
+	latitude = serializers.FloatField()
+	longitude = serializers.FloatField()
+	altitude = serializers.FloatField()
+	datetime = serializers.DateTimeField()

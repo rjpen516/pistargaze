@@ -17,7 +17,7 @@ from rest_framework import permissions
 from rest_framework import generics
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate
 
 import gpsd
 import json
@@ -29,6 +29,13 @@ from django.conf import settings
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
 
+
+from astropy.coordinates import EarthLocation,SkyCoord
+from astropy.time import Time
+from astropy import units as u
+from astropy.coordinates import AltAz
+from astropy.coordinates import ICRS, Galactic, FK4, FK5  # Low-level frames
+from pprint import pprint
 
 
 
@@ -245,6 +252,43 @@ class CaptureData(APIView):
 				return Response(output)
 			return Response({'success': False, 'message': 'solving'})
 		return Response({'success': False, 'message': "invalid subid"}, content_type="application/json")
+
+
+class CaptureCalabration(APIView):
+
+	serializer_class = CaptureCalibrate
+
+
+	def post(self,request,format=None):
+
+
+		serializer = CaptureCalibrate(data=request.data)
+
+
+		if serializer.is_valid():
+
+			#print(serializer['subid'])
+
+			info =  json.loads(requests.get("http://nova:8000/api/jobs/{0}/info".format(serializer['subid'].value)).text)
+
+
+			observing_location = EarthLocation(lat=serializer['latitude'].value*u.deg, lon=serializer['longitude'].value*u.deg, height=serializer['altitude'].value*u.m)  
+			observing_time = serializer['datetime'].value
+			aa = AltAz(location=observing_location, obstime=observing_time)
+
+			coord = SkyCoord(ra=info['calibration']['ra']*u.degree, dec=info['calibration']['dec']*u.degree)
+			altaz =coord.transform_to(aa)
+
+			#print("Telescope's Altitude = {0.alt:.2}\n Telescope's Az = {0.az:.2}\n".format(altaz))
+			settings.TELESCOPE_LOCK.acquire()
+			self.TELESCOPE.sync(info['calibration']['ra'], info['calibration']['dec'])
+			settings.TELESCOPE_LOCK.release()
+
+
+
+
+			return Response({'alt': altaz.alt.value, 'az':altaz.az.value})
+
 
 
 

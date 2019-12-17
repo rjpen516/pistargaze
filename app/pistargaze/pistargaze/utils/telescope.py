@@ -90,3 +90,9 @@ class TelescopeRunner(object):
 			return datetime.timestamp(self.time)
 		else:
 			self.telescope_serial.get_time()
+
+	 def sync(self, ra, dec):
+	 	if self.LOCAL_NON_PI:
+	 		return "ok"
+	 	else:
+	 		self.telescope_serial.sync(ra,dec)

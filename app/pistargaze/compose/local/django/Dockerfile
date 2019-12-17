@@ -15,7 +15,8 @@ RUN apk update \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
   && apk add postgresql-client \
   && apk add gpsd gpsd-clients  \
-  && apk add wget
+  && apk add wget cython \
+  && pip install cython
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements

@@ -91,7 +91,7 @@ $.ajax({
         		lastResult = json;
         		//enable our annotaion image
         		$("#analysisInput").removeAttr("disabled");
-        		$("#analysisInput").attr('checked', true);;
+        		$("#analysisInput").attr('checked', true);
 ;
 
 
@@ -152,6 +152,9 @@ $.ajax({
 });
 
 $("#buttonCapture").click(function() {
+
+	$("#analysisInput").attr("disabled", "disabled");
+	$("#analysisInput").removeAttr('checked');
 
 	$('#image_capture').attr("src", "/api/capture/latest");
 	console.log("Loading new image")

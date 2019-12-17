@@ -12,4 +12,5 @@ urlpatterns = [
 	url(r'capture/latest', views.CaptureLatest.as_view(), name='CaptureLatest'),
 	url(r'capture/analysis', views.CaptureAnalysis.as_view(), name='CaptureAnalysis'),
 	url(r'capture/data', views.CaptureData.as_view(), name='CaptureData'),
+	url(r'capture/calibrate', views.CaptureCalabration.as_view(), name='CaptureCalabration'),
 ]
