@@ -50,6 +50,37 @@ RUN python3 setup.py install
 
 RUN apk add git unzip  build-base gcc cmake
 
+RUN     buildDeps="autoconf \
+                   automake \
+                   bash \
+                   binutils \
+                   bzip2 \
+                   cmake \
+                   curl \
+                   coreutils \
+                   diffutils \
+                   file \
+                   g++ \
+                   gcc \
+                   gperf \
+                   libtool \
+                   make \
+                   python \
+                   openssl-dev \
+                   tar \
+                   yasm \
+                   nasm \
+                   zlib-dev \
+                   libvpx-dev \
+                   expat-dev" && \
+
+        apk  add --no-cache --update ${buildDeps}
+
+
+
+
+RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg && cd ffmpeg/ && git checkout 2ca65fc7b74444edd51d5803a2c1e05a801a6023 && ./configure --prefix=/opt/ --enable-libvpx && make -j && make install
+
 
 
 
