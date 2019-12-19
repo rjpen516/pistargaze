@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/ffmpeg/ffserver -d -f /etc/ffmpeg.conf 

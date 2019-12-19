@@ -83,3 +83,15 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
+
+
+  videostream:
+    <<: *django
+    image:  pistargaze_local_videostream
+    build:
+      context: .
+      dockerfile: ./compose/local/videostream/Dockerfile
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    ports:
+      - "8090:8090"
