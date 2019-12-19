@@ -27,6 +27,7 @@ RUN     buildDeps="autoconf \
                    nasm \
                    zlib-dev \
                    libvpx-dev \
+                   linux-headers \
                    libc-dev \
                    expat-dev" && \
     apk  add --no-cache --update ${buildDeps}
