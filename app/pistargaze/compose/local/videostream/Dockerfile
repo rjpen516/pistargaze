@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update
-RUN apt-get -y install bash 
+RUN apt-get -y install bash  gphoto2
 
 COPY ./compose/local/videostream/ffmpeg /opt/ffmpeg
 COPY ./compose/local/videostream/ffmpeg_g /opt/ffmpeg_g

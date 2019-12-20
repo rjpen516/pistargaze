@@ -87,6 +87,7 @@ services:
 
   videostream:
     <<: *django
+    privileged: true
     image:  pistargaze_local_videostream
     build:
       context: .
