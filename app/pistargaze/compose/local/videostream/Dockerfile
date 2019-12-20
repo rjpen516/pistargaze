@@ -1,44 +1,20 @@
-FROM python:3.7-alpine
+FROM ubuntu:18.04
 
-COPY ./compose/local/videostream/ffmpeg.conf /etc/ffmpeg.conf
+RUN apt-get update
+RUN apt-get -y install bash 
 
-
-
-RUN     buildDeps="autoconf \
-                   git \
-                   automake \
-                   bash \
-                   binutils \
-                   bzip2 \
-                   cmake \
-                   curl \
-                   coreutils \
-                   diffutils \
-                   file \
-                   g++ \
-                   gcc \
-                   gperf \
-                   libtool \
-                   make \
-                   python \
-                   openssl-dev \
-                   tar \
-                   yasm \
-                   nasm \
-                   zlib-dev \
-                   libvpx-dev \
-                   linux-headers \
-                   libc-dev \
-                   expat-dev" && \
-    apk  add --no-cache --update ${buildDeps}
-
-
-
-
-RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg && cd ffmpeg/ && git checkout 2ca65fc7b74444edd51d5803a2c1e05a801a6023 && ./configure --prefix=/opt/ --enable-libvpx && make -j && make install
+COPY ./compose/local/videostream/ffmpeg /opt/ffmpeg
+COPY ./compose/local/videostream/ffmpeg_g /opt/ffmpeg_g
+COPY ./compose/local/videostream/ffprobe /opt/ffprobe
+COPY ./compose/local/videostream/ffprobe_g /opt/ffprobe_g
+COPY ./compose/local/videostream/ffserver /opt/ffserver
+COPY ./compose/local/videostream/ffserver_g /opt/ffserver_g
 
 COPY ./compose/local/videostream/start /start
-RUN chmod a+x /start
 
+COPY ./compose/local/videostream/ffmpeg.conf /etc/
+
+RUN chmod +x /start
 
 ENTRYPOINT ["/start"]
+
