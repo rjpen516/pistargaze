@@ -19,6 +19,7 @@ RUN chmod +x /start
 
 
 COPY state.sh /state.sh
+RUN chmod +x /start.sh
 
 ENTRYPOINT ["/start"]
 
