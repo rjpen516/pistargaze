@@ -1,3 +1,7 @@
 #!/bin/bash
 
-/opt/ffserver -d -f /etc/ffmpeg.conf 
+
+/state.sh & 
+
+
+/opt/ffserver -d -f /etc/ffmpeg.conf

@@ -16,5 +16,9 @@ COPY ./compose/local/videostream/ffmpeg.conf /etc/
 
 RUN chmod +x /start
 
+
+
+COPY state.sh /state.sh
+
 ENTRYPOINT ["/start"]
 
