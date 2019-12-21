@@ -96,3 +96,4 @@ services:
       - /dev/bus/usb:/dev/bus/usb
     ports:
       - "8090:8090"
+      - "5554:5554"
