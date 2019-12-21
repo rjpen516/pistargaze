@@ -19,7 +19,7 @@ RUN chmod +x /start
 
 
 COPY ./compose/local/videostream/state.sh /state.sh
-RUN chmod +x /start.sh
+RUN chmod +x /state.sh
 
 ENTRYPOINT ["/start"]
 
