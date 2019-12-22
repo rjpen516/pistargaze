@@ -1,5 +1,4 @@
 sleep 30
-mkdir /var/run/videostream/
 touch /var/run/videostream/signal
 echo "waiting" > /var/run/videostream/signal
 while inotifywait -e close_write /var/run/videostream/signal; do 
