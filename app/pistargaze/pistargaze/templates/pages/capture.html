@@ -165,6 +165,9 @@ $("#buttonCapture").click(function() {
 });
 
 
+$("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.webm")
+
+
 
 
 </script>
@@ -232,6 +235,9 @@ $("#buttonCapture").click(function() {
 		Video Preview - Last Update <span id="video_update">N/A</span>
 		<br>
 		<div id="video_preview_image">
+
+
+		<video width="320" height="240" src="" type="video/webm" controls=false id="capture" />
 
 		<img id="image_capture" src="" height="300" width="300" />
 
