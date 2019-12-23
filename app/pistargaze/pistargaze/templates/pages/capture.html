@@ -14,6 +14,10 @@
 	$( document ).ready(function() {
 
 
+
+
+
+
 /**************************************
 *****    Gobal Vars ********
 **************************************/
@@ -36,6 +40,28 @@ dataServiceResult = false;
 lastResult = null;
 
 latestImageCapture = -1;
+
+streamstate = "stopped"
+
+
+		$.ajax({
+        url: '/api/command/camera/stream',
+        type: 'get',
+        success: function(json) {
+        	if(json['pid'] == '' || json['pid'] == 'status')
+        	{
+        		streamstate = "stopped"
+        	}
+        	else
+        	{
+        		streamstate = "streaming";
+        	}
+
+
+
+
+
+        }});
 
 dataRetrivelService = setInterval(function(){
 
@@ -73,6 +99,48 @@ dataRetrivelService = setInterval(function(){
 
 },500);
 
+
+function update_stream()
+{
+	if(streamstate == "stopped"){
+		streamstate = "streaming";
+		$(this).text("Stop Live Stream");
+	
+		$('#video_preview_image').html('<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />');
+
+		$.ajax({
+        url: '/api/command/camera/stream',
+        type: 'post',
+        success: function(json) {
+        	$('#log').append("Starting Live Stream" + "<br>");
+
+
+
+
+
+        }});
+	}
+	else if(streamstate == "streaming")
+	{
+		streamstate = "stopped";
+		$(this).text("Start Live Stream");
+		$('#video_preview_image').html('<img id="image_capture" src="/api/capture/latest" width="320" height="240" />');
+		$.ajax({
+        url: '/api/command/camera/stream',
+        type: 'delete',
+        success: function(json) {
+        	$('#log').append("Stopping Live Stream" + "<br>");
+
+
+
+        }});
+	}
+	else
+	{
+		console.log("We fucked up");
+	}
+}
+
 function data_service()
 {
 
@@ -92,7 +160,6 @@ $.ajax({
         		//enable our annotaion image
         		$("#analysisInput").removeAttr("disabled");
         		$("#analysisInput").attr('checked', true);
-;
 
 
         		//load the new image for annoations
@@ -162,6 +229,22 @@ $("#buttonCapture").click(function() {
 
 });
 
+
+$("#buttontlive").click(function() {
+
+
+update_stream();
+	
+
+
+});
+
+
+
+
+
+
+
 });
 
 
@@ -187,7 +270,6 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 
 #video_preview{
 	width: 320px;
-	height: 310px;
 	float: left;
 }
 
@@ -209,6 +291,11 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 	overflow: scroll;
 }
 
+#video_preview_image{
+	width: 320px;
+	height: 240px;
+}
+
 
 
 
@@ -225,6 +312,7 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 		<button id='buttonCapture' type="button" class="btn btn-primary">Capture</button> - Snap an image from the main camera <br>
 		<button id='buttonAnalysis' type="button" class="btn btn-info">Analysis</button> - See what was in the last capture <br>
 		<button id='buttonCalabrate' type="button" class="btn btn-info">Calabrate</button> - Update telescope position to last image captured <br>
+		<button id='buttontlive' type="button" class="btn btn-secondary">Start Live Stream</button> - Start/End Live Stream <br>
 
 		<div id='log'></div>
 	</div>
@@ -236,15 +324,16 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 		<br>
 		<div id="video_preview_image">
 
+		<img id="image_capture" src="/api/capture/latest" width="320" height="240" />
+		
+</div>
 
-		<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />
 
-		<img id="image_capture" src="" height="300" width="300" />
-
-		<div class="custom-control custom-switch">
+<div class="custom-control custom-switch"  >
   <input type="checkbox" class="custom-control-input" id="analysisInput" disabled=true>
   <label class="custom-control-label" for="analysisInput">Show Analysis Overlay</label>
 </div>
+
 
 	</div>
 

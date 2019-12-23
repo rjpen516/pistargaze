@@ -1,4 +1,5 @@
 import os
+import time
 
 
 
@@ -57,5 +58,14 @@ class CaptureBridge(object):
 		signal = open(self.path, 'w+')
 		signal.write("imageformat\n{0}".format(bulb_expose))
 		signal.close()
+
+	def status(self):
+		signal = open(self.path, 'w+')
+		signal.write("status")
+		signal.close()
+		time.sleep(.1)
+		pid = open(self.path,'r+').read().strip()
+
+		return pid
 
 

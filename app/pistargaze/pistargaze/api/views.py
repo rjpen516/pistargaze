@@ -295,6 +295,11 @@ class CaptureCalabration(APIView):
 class CameraStream(APIView):
 
 	def get(self, request, format=None):
+		pid = settings.CAMERA_CONTROL.status()
+		return Response({'success': True, 'pid': pid})
+
+
+	def post(self, request, format=None):
 		settings.CAMERA_CONTROL.startVideoStream()
 
 

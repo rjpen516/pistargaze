@@ -49,6 +49,8 @@ RUN make -j
 
 #X86 version of the ffmpeg (useful for development and intel nuc versions of the stack)
 
+RUN apt-get -y install yasm nasm
+
 RUN cp -Rv /ffmpeg /ffmpeg_x86_linux
 ENV CROSS=''
 WORKDIR /ffmpeg_x86_linux

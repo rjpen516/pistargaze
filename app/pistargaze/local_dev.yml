@@ -96,7 +96,7 @@ services:
     image:  pistargaze_local_videostream
     build:
       context: .
-      dockerfile: ./compose/local/videostream/Dockerfile
+      dockerfile: ./compose/local/videostream/x86_64_linux/Dockerfile
     volumes:
       - ./:/dev/bus/usb
       - ./var/run/videostream/:/var/run/videostream/
