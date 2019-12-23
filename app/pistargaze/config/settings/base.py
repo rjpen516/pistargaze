@@ -7,6 +7,7 @@ import point
 import threading
 
 from pistargaze.utils.telescope import TelescopeRunner 
+from pistargaze.utils.CaptureBridge import CaptureBridge
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
@@ -293,6 +294,8 @@ SOCIALACCOUNT_ADAPTER = "pistargaze.users.adapters.SocialAccountAdapter"
 
 
 LOCAL_NON_PI = False
+
+CAMERA_CONTROL = CaptureBridge()
 
 if env("NON_PI_DEV") == 'TRUE':
     LOCAL_NON_PI = True

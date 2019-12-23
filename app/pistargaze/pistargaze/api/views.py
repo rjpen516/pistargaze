@@ -292,6 +292,22 @@ class CaptureCalabration(APIView):
 
 
 
+class CameraStream(APIView):
+
+	def get(self, request, format=None):
+		CAMERA_CONTROL.startVideoStream()
+
+
+		return Response({'success': True})
+
+	def delete(self, request, format=None):
+
+		CAMERA_CONTROL.stopVideoStream()
+
+		return Response({'success': True})
+
+
+		
 
 
 
