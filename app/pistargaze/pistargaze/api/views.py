@@ -183,7 +183,10 @@ class CaptureLatest(APIView):
 	def get(self, request, format=None):
 
 
-		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb").read()
+		#this fucntion will always return the latest image that we have, else it will return the error photo
+
+
+		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/error_message.png"), "rb").read()
 		return HttpResponse(image_data,content_type="image/png")
 
 

@@ -50,11 +50,15 @@ streamstate = "stopped"
         success: function(json) {
         	if(json['pid'] == '' || json['pid'] == 'status')
         	{
-        		streamstate = "stopped"
+        		streamstate = "stopped";
         	}
         	else
         	{
         		streamstate = "streaming";
+        		$("#buttontlive").html("Stop Live Stream");
+	
+				$('#video_preview_image').html('<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />');
+
         	}
 
 
@@ -104,7 +108,7 @@ function update_stream()
 {
 	if(streamstate == "stopped"){
 		streamstate = "streaming";
-		$(this).text("Stop Live Stream");
+		$("#buttontlive").html("Stop Live Stream");
 	
 		$('#video_preview_image').html('<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />');
 
@@ -123,7 +127,7 @@ function update_stream()
 	else if(streamstate == "streaming")
 	{
 		streamstate = "stopped";
-		$(this).text("Start Live Stream");
+		$("#buttontlive").html("Start Live Stream");
 		$('#video_preview_image').html('<img id="image_capture" src="/api/capture/latest" width="320" height="240" />');
 		$.ajax({
         url: '/api/command/camera/stream',
