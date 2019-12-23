@@ -43,3 +43,29 @@ WORKDIR /ffmpeg
 
 RUN ./configure --enable-cross-compile --cross-prefix="/opt/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-" --arch=armel --target-os=linux --enable-gpl  --enable-libvpx  --extra-cflags="-I/ffmpeg/libvpx/" --extra-ldflags="-ldl -L/ffmpeg/libvpx/"  --extra-cflags="-I/ffmpeg/libx264/" --extra-ldflags="-ldl -L/ffmpeg/libx264/"  
 RUN make -j
+
+
+
+
+#X86 version of the ffmpeg (useful for development and intel nuc versions of the stack)
+
+RUN cp -Rv /ffmpeg /ffmpeg_x86_linux
+ENV CROSS=''
+WORKDIR /ffmpeg_x86_linux
+RUN make clean 
+WORKDIR /ffmpeg_x86_linux/x264/
+RUN make clean
+RUN ./configure --enable-static --disable-asm 
+RUN make -j
+
+WORKDIR /ffmpeg_x86_linux/libvpx
+RUN make clean
+RUN ./configure --enable-static
+RUN make -j
+
+
+#
+WORKDIR /ffmpeg_x86_linux
+RUN ./configure --target-os=linux --enable-gpl    --extra-cflags="-I/ffmpeg_x86_linux/libvpx/" --extra-ldflags="-ldl -L/ffmpeg_x86_linux/libvpx/"  --extra-cflags="-I/ffmpeg_x86_linux/libx264/" --extra-ldflags="-ldl -L/ffmpeg_x86_linux/libx264/" --enable-libvpx
+
+RUN make -j 
