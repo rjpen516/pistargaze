@@ -19,6 +19,7 @@ services:
       - .:/app
       - ./special/:/shutdown_signal
       - ../../:/mnt/
+      - ./var/run/videostream/:/var/run/videostream/
 
     env_file:
       - ./.envs/.local/.django
@@ -98,5 +99,6 @@ services:
       dockerfile: ./compose/local/videostream/Dockerfile
     volumes:
       - ./:/dev/bus/usb
+      - ./var/run/videostream/:/var/run/videostream/
     ports:
       - "8090:8090"
