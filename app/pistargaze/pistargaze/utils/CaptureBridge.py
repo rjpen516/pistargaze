@@ -25,6 +25,7 @@ class CaptureBridge(object):
 	def stopVideoStream(self):
 		if self.video_state == "capturing":
 			signal = open(self.path,"w+")
+			self.video_state = "not_capturing"
 			signal.write("stopstream")
 			signal.close()
 		return "ok"
