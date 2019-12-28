@@ -11,6 +11,7 @@ while inotifywait -e close_write /var/run/videostream/signal; do
   	echo "Stoping Video Stream"
   	echo "done" > /var/run/videostream/signal
   	kill -9 `ps aux  | grep gphoto2 | awk '{print $2}'`
+  	gphoto2 --reset
   elif [ "$signal" == "iso" ]; then
   	config=$(sed '2q;d' /var/run/videostream/signal)
   	echo "Setting the ISO"
