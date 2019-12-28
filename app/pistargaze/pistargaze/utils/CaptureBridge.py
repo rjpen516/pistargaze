@@ -56,8 +56,12 @@ class CaptureBridge(object):
 
 	def capture(self, bulb_expose=0):
 		signal = open(self.path, 'w+')
-		signal.write("imageformat\n{0}".format(bulb_expose))
+		signal.write("capture\n{0}".format(bulb_expose))
 		signal.close()
+		time.sleep(.1)
+		file = open(self.path,'r+').read().strip()
+
+		return file
 
 	def status(self):
 		signal = open(self.path, 'w+')

@@ -30,3 +30,7 @@ class CaptureCalibrate(serializers.Serializer):
 	longitude = serializers.FloatField()
 	altitude = serializers.FloatField()
 	datetime = serializers.DateTimeField()
+
+
+class CameraCaptureApi(serializers.Serializer):
+	expose = serializers.IntegerField(min_value=0, max_value=1000)

@@ -17,7 +17,7 @@ from rest_framework import permissions
 from rest_framework import generics
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi
 
 import gpsd
 import json
@@ -317,5 +317,32 @@ class CameraStream(APIView):
 
 
 
+class CameraCapture(APIView):
 
 
+	serializer_class = CameraCaptureApi
+
+
+	def post(self, request, fortmat=None):
+
+		serializer = CameraCaptureApi(data=request.data)
+
+		if serializer.is_valid():
+
+			#first we need to see if we are streaming, if so, lets stop that crap
+			pid = settings.CAMERA_CONTROL.status()
+
+			if pid == "status":
+				return Response({'status': False, 'message': 'Stack still booting up'})
+
+			elif pid != "" and int(pid) > 0:
+				settings.CAMERA_CONTROL.stopVideoStream()
+
+
+			#now that we are in an expected state, lets go make a capture
+
+			photoTicket = settings.CAMERA_CONTROL.capture(serializer['expose'])
+
+			return Response({'status': True, 'photoTicket': photoTicket})
+
+		return Response({'status': False, 'message': 'invalid input'})

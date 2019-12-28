@@ -24,7 +24,7 @@ while inotifywait -e close_write /var/run/videostream/signal; do
   elif [ "$signal" == "capture" ]; then
   	config=$(sed '2q;d' /var/run/videostream/signal)
   	filename=$(gphoto2 --auto-detect -B $config --capture-image-and-download | grep -ri "Saving file as " | cut -d" " -f 4)
-  	echo "done\n$filename" > /var/run/videostream/signal
+  	echo "$filename" > /var/run/videostream/signal
   elif [ "$signal" == "status" ]; then 
   	ps aux  | grep "gphoto2 --capture-movie --stdout" | grep -v "grep" | awk '{print $2}' > /var/run/videostream/signal
   fi

@@ -57,7 +57,7 @@ streamstate = "stopped"
         		streamstate = "streaming";
         		$("#buttontlive").html("Stop Live Stream");
 	
-				$('#video_preview_image').html('<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />');
+				$('#video_preview_image').html('<video width="320" height="240" src="http://' + window.location.hostname + ':8090/camera.webm" type="video/webm" autoplay=auto controls=false id="capture" />');
 
         	}
 
@@ -110,7 +110,7 @@ function update_stream()
 		streamstate = "streaming";
 		$("#buttontlive").html("Stop Live Stream");
 	
-		$('#video_preview_image').html('<video width="320" height="240" src="" type="video/webm" autoplay=auto controls=false id="capture" />');
+		$('#video_preview_image').html('<video width="320" height="240" src="http://' + window.location.hostname + ':8090/camera.webm" type="video/webm" autoplay=auto controls=false id="capture" />');
 
 		$.ajax({
         url: '/api/command/camera/stream',
@@ -184,6 +184,23 @@ $.ajax({
 $("#buttonCapture").click(function() {
 
 latestImageCapture = Date.now();
+
+
+$.ajax({
+        url: '/api/command/camera/capture',
+        type: 'post',
+        data: {"expose": 30},
+        success: function(json) {
+        	$('#log').text("");
+        	$('#log').append(JSON.stringify(json) + "<br>");
+
+
+
+        }});
+
+
+
+
 
 });
 
