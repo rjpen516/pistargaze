@@ -1,0 +1,14 @@
+[Unit]
+Description=Gphoto Monitor
+
+
+[Service]
+Environment=DISPLAY=:0.0
+Type=simple
+ExecStart=/bin/bash /data/pistargaze/pi/gphoto2-killer.sh
+Restart=on-abort
+User=root
+Group=root
+
+[Install]
+WantedBy=graphical.target
