@@ -9,7 +9,7 @@ RUN apk update \
   # Pillow dependencies
   && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
   # CFFI dependencies
-  && apk add libffi-dev py-cffi \
+  && apk add libffi-dev py-cffi git \
   # Translations dependencies
   && apk add gettext \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
@@ -17,6 +17,14 @@ RUN apk update \
   && apk add gpsd gpsd-clients  \
   && apk add wget cython \
   && pip install cython
+
+
+WORKDIR /tmp
+RUN apk add git cmake build-base libraw-dev \
+&& git clone https://github.com/letmaik/rawpy \
+&& cd rawpy \
+&& pip install numpy cython \
+&& pip install .
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
