@@ -20,6 +20,7 @@ services:
       - /var/run/shutdown_signal:/shutdown_signal
       - /dev/bus/usb:/dev/bus/usb
       - /var/run/videostream/:/var/run/videostream/
+      - /data/:/data/
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres

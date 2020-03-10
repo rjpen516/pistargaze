@@ -30,7 +30,9 @@ while inotifywait -e close_write /var/run/videostream/signal; do
   elif [ "$signal" == "capture" ]; then
   	echo "Capturing Image"
   	config=$(sed '2q;d' /var/run/videostream/signal)
-  	filename=$(gphoto2 --auto-detect -B $config --capture-image-and-download | grep -ri "Saving file as " | cut -d" " -f 4)
+  	filename=$(gphoto2 --auto-detect -B $config --capture-image-and-download --force-overwrite)
+    mkdir -p /data/capture/new || true
+    mv capt0000.cr2 /data/capture/new/
   	echo "$filename" > /var/run/videostream/signal
   elif [ "$signal" == "status" ]; then 
   	echo "Getting Status"

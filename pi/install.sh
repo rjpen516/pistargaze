@@ -18,6 +18,9 @@ systemctl start docker.service
 sudo apt install docker-ce docker-compose
 
 sudo cp /data/pistargaze/pi/gphoto.service /etc/systemd/system/gphoto.service
-sudo cp /data/pistargaze/pi/gphoto.service /etc/systemd/system/gphoto.service
+sudo cp /data/pistargaze/pi/shutdown.service /etc/systemd/system/shutdown.service
 sudo systemctl enable gphoto
 sudo systemctl start gphoto
+
+sudo systemctl enable shutdown
+sudo systemctl start shutdown
