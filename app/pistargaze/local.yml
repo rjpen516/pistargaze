@@ -97,6 +97,7 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - /var/run/videostream/:/var/run/videostream/
+      - /data/:/data/
     ports:
       - "8090:8090"
       - "5554:5554"
