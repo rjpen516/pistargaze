@@ -349,12 +349,12 @@ class CameraCapture(APIView):
 			with rawpy.imread(photoFile) as raw:
 				thumb = raw.extract_thumb()
 			if thumb.format == rawpy.ThumbFormat.JPEG:
-    			# thumb.data is already in JPEG format, save as-is
-    			with open('/data/capture/current.jpg', 'wb') as f:
-        			f.write(thumb.data)
+				# thumb.data is already in JPEG format, save as-is
+				with open('/data/capture/current.jpg', 'wb') as f:
+					f.write(thumb.data)
 			elif thumb.format == rawpy.ThumbFormat.BITMAP:
-   				# thumb.data is an RGB numpy array, convert with imageio
-    			imageio.imsave('/data/capture/current.jpg', thumb.data)
+				# thumb.data is an RGB numpy array, convert with imageio
+				imageio.imsave('/data/capture/current.jpg', thumb.data)
 
 
 
