@@ -37,6 +37,9 @@ from astropy.coordinates import AltAz
 from astropy.coordinates import ICRS, Galactic, FK4, FK5  # Low-level frames
 from pprint import pprint
 
+import rawpy
+import imageio
+
 
 
 class CommandTelescope(APIView):
@@ -341,8 +344,13 @@ class CameraCapture(APIView):
 
 			#now that we are in an expected state, lets go make a capture
 
-			photoTicket = settings.CAMERA_CONTROL.capture("filename.cr2")
+			photoFile = settings.CAMERA_CONTROL.capture("filename.cr2")
 
-			return Response({'status': True, 'photoTicket': photoTicket})
+			with rawpy.imread(photoFile) as raw:
+				thumb = raw.extract_thumb()
+
+
+
+			return Response({'status': True, 'photoFile': photoFile})
 
 		return Response({'status': False, 'message': 'invalid input'})
