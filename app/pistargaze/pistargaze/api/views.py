@@ -341,7 +341,7 @@ class CameraCapture(APIView):
 
 			#now that we are in an expected state, lets go make a capture
 
-			photoTicket = settings.CAMERA_CONTROL.capture(serializer['expose'])
+			photoTicket = settings.CAMERA_CONTROL.capture("filename.cr2")
 
 			return Response({'status': True, 'photoTicket': photoTicket})
 
