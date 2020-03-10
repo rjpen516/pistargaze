@@ -29,6 +29,7 @@ while inotifywait -e close_write /var/run/videostream/signal; do
   	echo "done" > /var/run/videostream/signal
   elif [ "$signal" == "capture" ]; then
   	echo "Capturing Image"
+    gphoto2 --reset
   	config=$(sed '2q;d' /var/run/videostream/signal)
   	filename=$(gphoto2 --auto-detect -B $config --capture-image-and-download --force-overwrite)
     mkdir -p /data/capture/new || true
