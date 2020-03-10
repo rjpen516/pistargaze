@@ -189,8 +189,8 @@ class CaptureLatest(APIView):
 		#this fucntion will always return the latest image that we have, else it will return the error photo
 
 
-		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/error_message.png"), "rb").read()
-		return HttpResponse(image_data,content_type="image/png")
+		image_data = open(os.path.join(settings.ROOT_DIR,"/data/capture/current.jpg"), "rb").read()
+		return HttpResponse(image_data,content_type="image/jpg")
 
 
 class CaptureAnalysis(APIView):
