@@ -1,6 +1,8 @@
 import os
 import time
 
+import os.path
+
 
 
 
@@ -55,14 +57,18 @@ class CaptureBridge(object):
 
 		return "ok"
 
-	def capture(self, bulb_expose=0):
+	def capture(self, filename=""):
 		signal = open(self.path, 'w+')
-		signal.write("capture\n{0}".format(bulb_expose))
+		signal.write("capture\n{0}".format(filename))
 		signal.close()
-		time.sleep(.1)
-		file = open(self.path,'r+').read().strip()
 
-		return file
+		while True:
+			if os.path.isfile('/data/capture/new/{0}'.format(filename)):
+				break
+			else:
+				time.sleep(.1)
+
+		return '/data/capture/new/{0}'.format(filename)
 
 	def status(self):
 		signal = open(self.path, 'w+')

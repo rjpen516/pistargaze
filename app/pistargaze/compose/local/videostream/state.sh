@@ -31,10 +31,10 @@ while inotifywait -e close_write /var/run/videostream/signal; do
   	echo "Capturing Image"
     gphoto2 --reset
   	config=$(sed '2q;d' /var/run/videostream/signal)
-  	filename=$(gphoto2 --auto-detect -B $config --capture-image-and-download --force-overwrite)
+  	filename=$(gphoto2 --auto-detect --capture-image-and-download --force-overwrite)
     mkdir -p /data/capture/new || true
-    mv capt0000.cr2 /data/capture/new/
-  	echo "$filename" > /var/run/videostream/signal
+    mv capt0000.cr2 /data/capture/new/$config
+  	echo "waiting" > /var/run/videostream/signal
   elif [ "$signal" == "status" ]; then 
   	echo "Getting Status"
   	ps aux  | grep "gphoto2 --capture-movie --stdout" | grep -v "grep" | awk '{print $2}' > /var/run/videostream/signal
