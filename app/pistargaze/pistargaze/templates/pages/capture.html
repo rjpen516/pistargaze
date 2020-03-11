@@ -25,7 +25,9 @@ var lastAnalsisId = -1;
 
 var data_loader_timer = null;
 
-var token = ""
+var token = "";
+
+var testdata = false;
 
 
 
@@ -231,10 +233,35 @@ $("#analysisInput").change(function() {
 
 });
 
+$("#debugInput").change(function() {
+
+	if($("#debugInput").is(":checked"))
+	{
+		testdata = true;
+
+	}
+	else
+	{
+		testdata = false;
+	}
+
+
+
+
+});
+
 $("#buttonAnalysis").click(function() {
 
+ if(testdata){
+	token_request = "";
+}
+else
+{
+	token_request = token;
+}
+
 $.ajax({
-        url: '/api/capture/analysis?token=' + token,
+        url: '/api/capture/analysis?token=' + token_request,
         type: 'get',
         success: function(json) {
         	$('#log').text("");
@@ -363,6 +390,10 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 <div class="custom-control custom-switch"  >
   <input type="checkbox" class="custom-control-input" id="analysisInput" disabled=true>
   <label class="custom-control-label" for="analysisInput">Show Analysis Overlay</label>
+</div>
+<div class="custom-control custom-switch"  >
+  <input type="checkbox" class="custom-control-input" id="debugInput" disabled=true>
+  <label class="custom-control-label" for="debugInput">Use Debug</label>
 </div>
 
 

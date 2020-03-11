@@ -288,6 +288,9 @@ class CaptureData(APIView):
 						'annotations': annotations, 
 						 'images': images}
 
+
+				print(objects_in_field)
+
 				return Response(output)
 			return Response({'success': False, 'message': 'solving'})
 		return Response({'success': False, 'message': "invalid subid"}, content_type="application/json")
