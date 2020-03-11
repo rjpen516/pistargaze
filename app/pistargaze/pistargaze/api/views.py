@@ -218,7 +218,7 @@ class CaptureAnalysis(APIView):
 			path = "pistargaze/static/images/img1.jpg"
 
 
-
+		print(path)
 
 
 		image_data = open(os.path.join(settings.ROOT_DIR,path), "rb")
