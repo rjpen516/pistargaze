@@ -45,7 +45,7 @@ import hashlib
 from datetime import datetime
 
 
-from models import Photo
+from .models import Photo
 
 
 
