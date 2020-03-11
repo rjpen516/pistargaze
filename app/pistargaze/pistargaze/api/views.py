@@ -215,7 +215,7 @@ class CaptureAnalysis(APIView):
 		path = ""
 
 		photo = Photo.objects.get(token=request.query_params.get('token'))
-		path = photo.path
+		path = photo.file
 
 			#path = "pistargaze/static/images/img1.jpg"
 
