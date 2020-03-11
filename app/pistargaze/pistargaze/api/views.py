@@ -195,10 +195,10 @@ class CaptureLatest(APIView):
 
 		image_data = open(os.path.join(settings.ROOT_DIR,"/data/capture/current.jpg"), "rb").read()
 
-		
 
 
-		
+
+
 		return HttpResponse(image_data,content_type="image/jpg")
 
 
@@ -229,6 +229,8 @@ class CaptureAnalysis(APIView):
 		if 'subid' in return_object.keys():
 			return Response({'result':'processing', 'subid': return_object['subid']})
 		else:
+
+			#we will store some data here about that image
 			return Response(return_object,content_type="application/json")
 
 
