@@ -347,7 +347,7 @@ class CameraCapture(APIView):
 
 			now = datetime.now()
 			m = hashlib.sha256()
-			m.update(b"{0}".format(now.strftime("%m/%d/%Y, %H:%M:%S")))
+			m.update("{0}".format(now.strftime("%m/%d/%Y, %H:%M:%S")))
 
 			filename_hex = m.hexdigest()
 
