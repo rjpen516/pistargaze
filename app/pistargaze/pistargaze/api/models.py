@@ -5,6 +5,11 @@ from django.db import models
 
 class Session(models.Model):
 	name = models.CharField(max_length=128)
+	stars = models.ManyToManyField(Stars)
+
+
+class Stars(models.Model):
+	name = models.CharField(max_length=128)
 
 
 

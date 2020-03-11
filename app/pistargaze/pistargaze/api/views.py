@@ -194,6 +194,11 @@ class CaptureLatest(APIView):
 
 
 		image_data = open(os.path.join(settings.ROOT_DIR,"/data/capture/current.jpg"), "rb").read()
+
+		
+
+
+		
 		return HttpResponse(image_data,content_type="image/jpg")
 
 
@@ -203,7 +208,7 @@ class CaptureAnalysis(APIView):
 
 		#in this method we will run our sky finder, and return out a job session id that we can query until the result is done. It will use the latest image in the capture queue 
 
-		image_data = open(os.path.join(settings.ROOT_DIR,"/data/capture/current.jpg"), "rb")
+		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb")
 
 
 		#we gotta auth to our local version of nova 
