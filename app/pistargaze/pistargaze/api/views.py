@@ -210,12 +210,18 @@ class CaptureAnalysis(APIView):
 
 
 		#in this method we will run our sky finder, and return out a job session id that we can query until the result is done. It will use the latest image in the capture queue 
-		request.query_params.get('token')
+		path = ""
+		try:
+			photo = Photo.objects.get(token=request.query_params.get('token'))
+			path = photo.path
+		except Exception:
+			path = "pistargaze/static/images/img1.jpg"
 
 
 
 
-		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb")
+
+		image_data = open(os.path.join(settings.ROOT_DIR,path), "rb")
 
 
 		#we gotta auth to our local version of nova 
