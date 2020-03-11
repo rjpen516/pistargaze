@@ -216,15 +216,22 @@ class CaptureAnalysis(APIView):
 		try:
 			photo = Photo.objects.get(token=request.query_params.get('token'))
 			path = photo.file
+
+			photoFile = settings.CAMERA_CONTROL.capture(path)
+
+			with rawpy.imread(photoFile) as raw:
+				thumb = raw.extract_thumb()
+			if thumb.format == rawpy.ThumbFormat.JPEG:
+				# thumb.data is already in JPEG format, save as-is
+				with open('/data/capture/process.jpg', 'wb') as f:
+					image_data = thumb.data
+
 		except Excetion:
 			path = os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg")
+			image_data = open(path, "rb")
 
 
-		print(path)
-
-
-		image_data = open(path, "rb")
-
+		
 
 		#we gotta auth to our local version of nova 
 		request_json = {"publicly_visible": "y", "allow_modifications": "y", "allow_commercial_use": "y"}
