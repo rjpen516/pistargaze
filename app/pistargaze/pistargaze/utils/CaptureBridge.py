@@ -68,6 +68,8 @@ class CaptureBridge(object):
 			else:
 				time.sleep(.1)
 
+		time.sleep(.1) #there is a timming condition where the file might not be fully written to disk before we return. 
+
 		return '/data/capture/new/{0}'.format(filename)
 
 	def status(self):
