@@ -194,6 +194,13 @@ $.ajax({
         	$('#log').text("");
         	$('#log').append(JSON.stringify(json) + "<br>");
 
+        	if json['status']
+        	{
+        		$('#image_capture').attr("src", "/api/capture/latest?" + json['token']);
+
+        	}
+
+        	
 
 
         }});
@@ -244,7 +251,7 @@ $("#buttonCapture").click(function() {
 	$("#analysisInput").attr("disabled", "disabled");
 	$("#analysisInput").removeAttr('checked');
 
-	$('#image_capture').attr("src", "/api/capture/latest?next");
+	
 	console.log("Loading new image")
 
 

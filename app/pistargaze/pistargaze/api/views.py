@@ -368,6 +368,6 @@ class CameraCapture(APIView):
 
 
 
-			return Response({'status': True, 'photoFile': photoFile})
+			return Response({'status': True, 'photoFile': photoFile, 'token': filename_hex})
 
 		return Response({'status': False, 'message': 'invalid input'})
