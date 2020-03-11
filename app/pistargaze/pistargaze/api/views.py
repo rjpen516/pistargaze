@@ -47,6 +47,8 @@ from datetime import datetime
 
 from .models import Photo
 
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 class CommandTelescope(APIView):
@@ -349,7 +351,7 @@ class CameraCapture(APIView):
 
 	serializer_class = CameraCaptureApi
 
-
+	@csrf_exempt
 	def post(self, request, fortmat=None):
 
 		serializer = CameraCaptureApi(data=request.data)
