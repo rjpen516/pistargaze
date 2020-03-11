@@ -392,7 +392,7 @@ class CameraCapture(APIView):
 
 			photo_data = Photo()
 			photo_data.token = filename_hex
-			photo_data.file = '/data/capture/new/{0}'.format(photoFile)
+			photo_data.file = '{0}'.format(photoFile)
 			loc = None
 			try:
 				gpsd.connect()
