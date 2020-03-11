@@ -244,7 +244,7 @@ $("#buttonCapture").click(function() {
 	$("#analysisInput").attr("disabled", "disabled");
 	$("#analysisInput").removeAttr('checked');
 
-	$('#image_capture').attr("src", "/api/capture/latest");
+	$('#image_capture').attr("src", "/api/capture/latest?next");
 	console.log("Loading new image")
 
 

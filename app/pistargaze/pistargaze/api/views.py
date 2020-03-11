@@ -40,6 +40,10 @@ from pprint import pprint
 import rawpy
 import imageio
 
+import hashlib
+
+from datetime import datetime
+
 
 
 class CommandTelescope(APIView):
@@ -341,10 +345,16 @@ class CameraCapture(APIView):
 			elif pid != "" and int(pid) > 0:
 				settings.CAMERA_CONTROL.stopVideoStream()
 
+			now = datetime.now()
+			m = hashlib.sha256()
+			m.update(b"{0}".format(now.strftime("%m/%d/%Y, %H:%M:%S")))
+
+			filename_hex = m.hexdigest()
+
 
 			#now that we are in an expected state, lets go make a capture
 
-			photoFile = settings.CAMERA_CONTROL.capture("filename.cr2")
+			photoFile = settings.CAMERA_CONTROL.capture("{0}.cr2".format(filename_hex))
 
 			with rawpy.imread(photoFile) as raw:
 				thumb = raw.extract_thumb()
