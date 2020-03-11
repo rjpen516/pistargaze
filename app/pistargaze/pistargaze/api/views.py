@@ -45,6 +45,9 @@ import hashlib
 from datetime import datetime
 
 
+from models import Photo
+
+
 
 class CommandTelescope(APIView):
 	serializer_class = MovementSerializer
@@ -207,6 +210,10 @@ class CaptureAnalysis(APIView):
 
 
 		#in this method we will run our sky finder, and return out a job session id that we can query until the result is done. It will use the latest image in the capture queue 
+		request.query_params.get('token')
+
+
+
 
 		image_data = open(os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg"), "rb")
 
@@ -372,6 +379,28 @@ class CameraCapture(APIView):
 			elif thumb.format == rawpy.ThumbFormat.BITMAP:
 				# thumb.data is an RGB numpy array, convert with imageio
 				imageio.imsave('/data/capture/current.jpg', thumb.data)
+
+
+
+			photo_data = Photo()
+			photo_data.token = filename_hex
+			photo_data.file = '/data/capture/new/{0}'.format(photoFile)
+			loc = None
+			try:
+				gpsd.connect()
+				packet = gpsd.get_current()
+				loc = packet.position()
+			except Exception:
+				return  Response({'status': False, 'message': 'gps error'})
+
+
+			photo_data.loc_long = loc[0]
+			photo_data.loc_lat = loc[1]
+			photo_data.time = packet.get_time()
+
+			photo_data.save()
+
+
 
 
 

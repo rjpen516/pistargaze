@@ -25,6 +25,8 @@ var lastAnalsisId = -1;
 
 var data_loader_timer = null;
 
+var token = ""
+
 
 
 /**************************************
@@ -197,6 +199,7 @@ $.ajax({
         	if(json['status'])
         	{
         		$('#image_capture').attr("src", "/api/capture/latest?" + json['token']);
+        		token = json['token'];
 
         	}
 
@@ -231,7 +234,7 @@ $("#analysisInput").change(function() {
 $("#buttonAnalysis").click(function() {
 
 $.ajax({
-        url: '/api/capture/analysis',
+        url: '/api/capture/analysis?token=' + token,
         type: 'get',
         success: function(json) {
         	$('#log').text("");
