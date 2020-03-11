@@ -217,7 +217,7 @@ class CaptureAnalysis(APIView):
 			photo = Photo.objects.get(token=request.query_params.get('token'))
 			path = photo.file
 
-			photoFile = settings.CAMERA_CONTROL.capture(path)
+			photoFile = path
 
 			with rawpy.imread(photoFile) as raw:
 				thumb = raw.extract_thumb()
