@@ -17,7 +17,7 @@ from rest_framework import permissions
 from rest_framework import generics
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew
 
 import gpsd
 import json
@@ -45,7 +45,7 @@ import hashlib
 from datetime import datetime
 
 
-from .models import Photo
+from .models import Photo, Session
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -353,7 +353,41 @@ class CameraStream(APIView):
 
 		return Response({'success': True})
 
+class SessionNewAPI(APIView):
 
+
+	serializer_class = SessionNew
+	def post(self, request, format=None):
+
+		serializer = SessionNew(data=request.data)
+
+		if serializer.is_valid():
+			entry = Session()
+			entry.name = serializer['name'].value
+			entry.note = serializer['note'].value
+			entry.location = serializer['location'].value
+			entry.save() 
+
+
+			return Response({'success': True})
+		return Response({'success': False})
+
+class Sessions(APIView):
+
+	def get(self,request, format=None):
+		entries = Session.objects.all()
+
+		output = []
+
+		for entry in entries:
+			output.append({"name": entry.name, 
+							"id": entry.id,
+							"note": entry.note, 
+							"location": entry.location, 
+							"date": entry.date, 
+							"numstars": entry.stars.count()})
+
+		return Response(output)
 
 
 class CameraCapture(APIView):

@@ -34,3 +34,10 @@ class CaptureCalibrate(serializers.Serializer):
 
 class CameraCaptureApi(serializers.Serializer):
 	expose = serializers.IntegerField(min_value=0, max_value=1000)
+
+
+
+class SessionNew(serializers.Serializer):
+	name = serializers.CharField()
+	note = serializers.CharField()
+	location = serializers.CharField()
