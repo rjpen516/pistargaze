@@ -9,9 +9,14 @@ class Stars(models.Model):
 class Session(models.Model):
 	name = models.CharField(max_length=128)
 	stars = models.ManyToManyField(Stars)
+	note = models.TextField()
+	date = models.DateTimeField(auto_now_add=True)
+	location = models.TextField()
 
 
-
+class KVStore(models.Model):
+	key = models.CharField(max_length=128)
+	value = models.TextField()
 
 
 

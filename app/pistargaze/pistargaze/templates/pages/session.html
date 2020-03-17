@@ -22,11 +22,34 @@
 #sessions_container{
 	float: left;
 	width:300px;
+	height: 400px;
+	scroll-behavior: smooth;
+	overflow: scroll;
 }
 
 #sessions_details{
 	float: right;
 	width:300px;
+}
+
+#detail_photo_container{
+	height:300px;
+}
+
+
+.thumbnail{
+	width:50px;
+	height:50px;
+}
+
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
 }
 
 
@@ -36,14 +59,36 @@
 
 <div id='container'>
 	<div id='sessions_container'>
+
+		<div id='sessions_row'>
+			Name: <span id="session_name"></span><br>
+			Date: <span id="session_date"></span><br>
+			Location: <span id="session_date"></span><br>
+			Notes: <span id="session_date"></span>
+			<hr>
+		</div>
+
+
+
+
 	</div>
 
 
 	<div id='sessions_details'>
 		Name: <span id='detail_name'></span><br>
 		Date: <span id='detail_date'></span><br>
+		Number of Exposure Frames: <span id='detail_expose'></span> <br>
+		Number of Dark Frames: <span id='detail_dark'></span> <br>
 		<button id='detail_set' class="btn btn-primary">Set Current</button>
-		<button id='detail_delete' class="btn btn-error">Delete</button>
+		<button id='detail_delete' class="btn btn-danger">Delete</button>
+		<br><br>
+		<div id="detail_photo_container">
+			<div id="detail_photo_row">
+				<img class="thumbnail" src="#">
+				<img class="thumbnail" src="#">
+				<img class="thumbnail" src="#">
+			</div>
+		</div>
 	</div>
 
 
