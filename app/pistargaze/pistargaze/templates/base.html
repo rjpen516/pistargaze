@@ -56,7 +56,10 @@
               <a class="nav-link" href="{% url 'telescope' %}">Telescope</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'capture' %}"">Capture</a>
+              <a class="nav-link" href="{% url 'capture' %}">Capture</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'session' %}">Session</a>
             </li>
             {% if request.user.is_authenticated %}
               <li class="nav-item">

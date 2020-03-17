@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+{{ block.super }}
+
+
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div id='container'>
+	<div id='sessions_container'>
+	</div>
+
+
+	<div id='sessions_details'>
+		Name: <span id='detail_name'></span><br>
+		Date: <span id='detail_date'></span><br>
+		<button id='detail_set' class="btn btn-primary">Set Current</button>
+		<button id='detail_delete' class="btn btn-error">Delete</button>
+	</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

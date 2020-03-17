@@ -309,7 +309,7 @@ class CaptureCalabration(APIView):
 
 		if serializer.is_valid():
 
-			#print(serializer['subid'])
+			print(serializer['subid'])
 
 			info =  json.loads(requests.get("http://nova:8000/api/jobs/{0}/info".format(serializer['subid'].value)).text)
 

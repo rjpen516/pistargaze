@@ -13,6 +13,7 @@ urlpatterns = [
     path("utils/", TemplateView.as_view(template_name="pages/utils.html"), name="utils"),
     path("telescope/", TemplateView.as_view(template_name="pages/telescope.html"), name="telescope"),
     path("capture/", TemplateView.as_view(template_name="pages/capture.html"), name="capture"),
+    path("session/", TemplateView.as_view(template_name="pages/session.html"), name="session"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
