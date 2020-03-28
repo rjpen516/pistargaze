@@ -1,18 +1,18 @@
 version: '3'
-
 volumes:
   local_postgres_data: {}
   local_postgres_data_backups: {}
   astrometry_index: {}
 
 services:
+
   django: &django
     privileged: true #this is bad, TODO: find a real way of allowing commands to run
     #network_mode: "host"
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: pistargaze_local_django
+    image: satrichard/pistargaze
     depends_on:
       - postgres
     volumes:
@@ -34,7 +34,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: pistargaze_production_postgres
+    image: satrichard/pistargaze_production_postgres
     volumes:
       - local_postgres_data:/var/lib/postgresql/data
       - local_postgres_data_backups:/backups
@@ -46,6 +46,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/nova/DockerfileArm
+    image: satrichard/pistargaze_nova
     ports:
       - 8001:8000
     volumes:
@@ -90,7 +91,7 @@ services:
   videostream:
     <<: *django
     privileged: true
-    image:  pistargaze_local_videostream
+    image:  satrichard/pistargaze_local_videostream
     build:
       context: .
       dockerfile: ./compose/local/videostream/armv7/Dockerfile
