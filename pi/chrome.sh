@@ -1,8 +1,16 @@
-#!/bin/sh
-DISPLAY=:0
-xset -dpms
-xset s off
+#!/bin/bash
 xset s noblank
+xset s off
+xset -dpms
 
-unclutter &
-chromium-browser https://google.com --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null  --password-store=basic
+unclutter -idle 0.5 -root &
+
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/pi/.config/chromium/Default/Preferences
+sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/pi/.config/chromium/Default/Preferences
+
+/usr/bin/chromium-browser --noerrdialogs --disable-infobars --kiosk https://pimylifeup.com https://www.adafruit.com &
+
+while true; do
+   xdotool keydown ctrl+Tab; xdotool keyup ctrl+Tab;
+   sleep 10
+done
