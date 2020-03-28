@@ -5,6 +5,7 @@ xset -dpms
 
 unclutter -idle 0.5 -root &
 
+cd /app/pistargaze
 docker-compose -f local.yml up &
 
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/pi/.config/chromium/Default/Preferences
