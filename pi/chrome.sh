@@ -5,7 +5,7 @@ xset -dpms
 
 unclutter -idle 0.5 -root &
 
-docker-compose -f local.yml up -d &
+docker-compose -f local.yml up &
 
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/pi/.config/chromium/Default/Preferences
 sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/pi/.config/chromium/Default/Preferences
