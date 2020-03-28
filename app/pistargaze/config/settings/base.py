@@ -77,6 +77,10 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
 LOCAL_APPS = [
     "pistargaze.users.apps.UsersConfig",
     "pistargaze.api.apps.ApiConfig"

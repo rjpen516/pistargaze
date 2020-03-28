@@ -41,3 +41,9 @@ class SessionNew(serializers.Serializer):
 	name = serializers.CharField()
 	note = serializers.CharField()
 	location = serializers.CharField()
+	pk = serializers.CharField()
+	#stars = serializers.IntegerField()
+
+
+class SessionQuery(serializers.Serializer):
+	pk = serializers.CharField()

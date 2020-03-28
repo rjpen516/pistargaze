@@ -15,6 +15,7 @@ urlpatterns = [
 	url(r'capture/calibrate', views.CaptureCalabration.as_view(), name='CaptureCalabration'),
 	url(r'command/camera/stream', views.CameraStream.as_view(), name='CameraStream'),
 	url(r'command/camera/capture', views.CameraCapture.as_view(), name='CameraCapture'),
-	url(r'session/new', views.SessionNewAPI.as_view(), name='SessionNew'),
-	url(r'session', views.Sessions.as_view(), name="Sessions")
+	#url(r'session/new', views.SessionNewAPI.as_view(), name='SessionNew'),
+	url(r'session/', views.Sessions.as_view(), name="SessionsQuery"),
+	url(r'session', views.Sessions.as_view(), name="Sessions"),
 ]

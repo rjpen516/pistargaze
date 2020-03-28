@@ -1,5 +1,9 @@
 #!/bin/bash
 
+mkdir /data
+
+cp -R ../../pistargaze /data/
+
 apt-get update
 apt-get install -y libffi-dev inotify-tools screen python-gps
 

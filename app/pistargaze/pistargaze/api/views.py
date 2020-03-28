@@ -17,7 +17,7 @@ from rest_framework import permissions
 from rest_framework import generics
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew, SessionQuery
 
 import gpsd
 import json
@@ -48,6 +48,8 @@ from datetime import datetime
 from .models import Photo, Session
 
 from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 
@@ -372,22 +374,13 @@ class SessionNewAPI(APIView):
 			return Response({'success': True})
 		return Response({'success': False})
 
-class Sessions(APIView):
+class Sessions(generics.ListCreateAPIView):
 
-	def get(self,request, format=None):
-		entries = Session.objects.all()
+	serializer_class = SessionNew
+	queryset = Session.objects.all()
+	permission_classes = [ AllowAny ]
 
-		output = []
 
-		for entry in entries:
-			output.append({"name": entry.name, 
-							"id": entry.id,
-							"note": entry.note, 
-							"location": entry.location, 
-							"date": entry.date, 
-							"numstars": entry.stars.count()})
-
-		return Response(output)
 
 
 class CameraCapture(APIView):
