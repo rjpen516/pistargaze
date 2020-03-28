@@ -39,3 +39,6 @@ sudo systemctl start chrome
 
 sudo apt-get install xdotool unclutter sed -y
 
+
+cat start_backend.sh > /etc/rc.local
+
