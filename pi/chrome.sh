@@ -11,7 +11,7 @@ sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/pi/.config/chromium
 service docker start
 
 
-/app/start_backend.sh &
+/data/pistargaze/pi/start_backend.sh &
 
 sleep 10
 

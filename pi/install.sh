@@ -41,4 +41,4 @@ sudo apt-get install xdotool unclutter sed -y
 
 
 
-sudo ln -s /data/pistargaze/app/ /app
+sudo ln -s /data/pistargaze/app/ /app/pistargaze/
