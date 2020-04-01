@@ -11,9 +11,13 @@ class Session(models.Model):
 	name = models.CharField(max_length=128)
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	stars = models.ManyToManyField(Stars)
-	note = models.TextField()
 	date = models.DateTimeField(auto_now_add=True)
-	location = models.TextField()
+	loc_long = models.DecimalField(decimal_places=5, max_digits=10)
+	loc_lat = models.DecimalField(decimal_places=5, max_digits=10)
+
+
+	def create(serilizzer):
+		pass
 
 
 class KVStore(models.Model):

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 import datetime
 
+from .models import Session
+
 
 class CommandSerializer(serializers.Serializer):
 	command = serializers.RegexField("(shutdown)|(restart)", max_length=150,help_text="Command such as shutdown or restart")
@@ -39,10 +41,18 @@ class CameraCaptureApi(serializers.Serializer):
 
 class SessionNew(serializers.Serializer):
 	name = serializers.CharField()
-	note = serializers.CharField()
-	location = serializers.CharField()
-	pk = serializers.CharField()
+	loc_long = serializers.FloatField()
+	loc_lat = serializers.FloatField()
+	pk = serializers.CharField(required=False, read_only=True)
 	#stars = serializers.IntegerField()
+
+	def create(self, validated_data):
+		data = Session()
+		data.name = validated_data['name']
+		data.loc_long = validated_data['loc_long']
+		data.loc_lat = validated_data['loc_lat']
+		data.save()
+		return data
 
 
 class SessionQuery(serializers.Serializer):
