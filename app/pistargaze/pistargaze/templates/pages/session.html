@@ -50,8 +50,8 @@ function grabGPS() {
         			if(data['lock_fixed'])
         			{
         				$('#location_badge').html("long: " + data['longitude'] + " - lat: " + data['latitude']);
-        				$('#longitude').value = data['longitude'];
-        				$("#latitude").value = data['latitude']
+        				$('#longitude').val(data['longitude']);
+        				$("#latitude").val(data['latitude']);
         			}
         			else
         			{
