@@ -49,7 +49,7 @@ function grabGPS() {
         success: function(data) {
         			if(data['lock_fixed'])
         			{
-        				$('#location_badge').html("long: " + data['longitude'] + "lat: " + data['latitude']);
+        				$('#location_badge').html("long: " + data['longitude'] + " - lat: " + data['latitude']);
         				$('#longitude').value = data['longitude'];
         				$("#latitude").value = data['latitude']
         			}
