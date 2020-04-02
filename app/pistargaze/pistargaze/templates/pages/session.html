@@ -64,6 +64,38 @@ function grabGPS() {
 
 
 
+
+////////////Load Sessions
+
+function load_session_table()
+{
+			$.ajax({
+			url: '/api/session',
+			type: 'get',
+			success: function(data)
+			{
+				outhtml = "";
+				for( i = 0; i < data.length; i++)
+				{
+					outhtml += '<div id="sessions_row" onClick="session_click_handler("' + data[i]['pk'] +'">Name: <span id="session_name">' +  data[i]['name'] +'</span><br>Date: <span id="session_date">' + data[i]['date'] + '</span><br>Location: <span id="session_loc">' + data[i]['loc_long'] + " " + data[i]['loc_lat']+'</span><hr></div>'
+		
+				}
+
+				$("#sessions_container").html(outhtml);
+			}
+		});
+}
+
+$( document ).ready(function() {
+
+	load_session_table();
+
+
+
+	});
+
+
+
 $('#save_new_session').click( function() {
 
 	var data_post = {
@@ -82,7 +114,10 @@ $('#save_new_session').click( function() {
 		data: JSON.stringify(data_post),
 		success: function(data)
 		{
-			alert("done")
+			$('#newSession').modal('hide');
+			load_session_table();
+
+
 		}
 
 	});
@@ -215,10 +250,7 @@ hr {
 		</div>
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" id="newSessionButton" onclick="grabGPS()" data-target="#newSession">
-  New Session
-</button>
+
 
 
 
@@ -240,6 +272,10 @@ hr {
 				<img class="thumbnail" src="#">
 			</div>
 		</div>
+		<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" id="newSessionButton" onclick="grabGPS()" data-target="#newSession">
+  New Session
+</button>
 	</div>
 
 

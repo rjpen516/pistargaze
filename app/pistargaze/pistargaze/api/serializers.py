@@ -43,6 +43,7 @@ class SessionNew(serializers.Serializer):
 	name = serializers.CharField()
 	loc_long = serializers.FloatField()
 	loc_lat = serializers.FloatField()
+	date = serializers.DateTimeField(required=False, read_only=True)
 	pk = serializers.CharField(required=False, read_only=True)
 	#stars = serializers.IntegerField()
 
