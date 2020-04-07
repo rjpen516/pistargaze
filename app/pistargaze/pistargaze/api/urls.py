@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.urls import path
+
 from django.conf.urls.static import static
 from . import views
 
@@ -16,6 +18,8 @@ urlpatterns = [
 	url(r'command/camera/stream', views.CameraStream.as_view(), name='CameraStream'),
 	url(r'command/camera/capture', views.CameraCapture.as_view(), name='CameraCapture'),
 	#url(r'session/new', views.SessionNewAPI.as_view(), name='SessionNew'),
-	url(r'session/', views.Sessions.as_view(), name="SessionsQuery"),
-	url(r'session', views.Sessions.as_view(), name="Sessions"),
+	url(r'session/$', views.Sessions.as_view(), name="Sessions"),
+	path(r'session/<str:pk>/', views.SessionsDetail.as_view(), name="SessionsDetail"),
+	path(r'session/<str:pk>/setcurrent', views.SeesionsCurrent.as_view(), name="SessionCurrent"),
+
 ]

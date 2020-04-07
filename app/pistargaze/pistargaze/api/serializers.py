@@ -44,6 +44,7 @@ class SessionNew(serializers.Serializer):
 	loc_long = serializers.FloatField()
 	loc_lat = serializers.FloatField()
 	date = serializers.DateTimeField(required=False, read_only=True)
+	current = serializers.BooleanField(required=False, read_only=True)
 	pk = serializers.CharField(required=False, read_only=True)
 	#stars = serializers.IntegerField()
 
@@ -52,9 +53,12 @@ class SessionNew(serializers.Serializer):
 		data.name = validated_data['name']
 		data.loc_long = validated_data['loc_long']
 		data.loc_lat = validated_data['loc_lat']
+		current = True
 		data.save()
 		return data
 
 
 class SessionQuery(serializers.Serializer):
 	pk = serializers.CharField()
+
+

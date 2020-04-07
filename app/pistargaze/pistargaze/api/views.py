@@ -7,7 +7,6 @@ import time
 import os
 
 
-
 from datetime import datetime
 from django.http import Http404
 from rest_framework.views import APIView
@@ -15,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import generics
+from rest_framework import mixins
 import time
 
 from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew, SessionQuery
@@ -374,13 +374,38 @@ class SessionNewAPI(APIView):
 			return Response({'success': True})
 		return Response({'success': False})
 
-class Sessions(generics.ListCreateAPIView):
+class Sessions(mixins.RetrieveModelMixin,
+	generics.ListCreateAPIView):
 
 	serializer_class = SessionNew
 	queryset = Session.objects.all()
 	permission_classes = [ AllowAny ]
 
+class SessionsDetail(generics.RetrieveUpdateDestroyAPIView):
+	serializer_class = SessionNew
+	queryset = Session.objects.all()
+	permission_classes = [ AllowAny ]
+	lookup_url_kwarg = 'pk'
 
+
+class SeesionsCurrent(APIView):
+
+	def get(self, request,pk, format=None):
+
+		currents = Session.objects.filter(current=True);
+
+
+		for current in currents:
+			current.current = False;
+			current.save()
+
+		current = Session.objects.get(pk=pk)
+		#pprint(current)
+		current.current = True;
+
+		current.save()
+
+		return Response({'success': True})
 
 
 class CameraCapture(APIView):

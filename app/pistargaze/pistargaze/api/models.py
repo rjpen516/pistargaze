@@ -14,6 +14,7 @@ class Session(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	loc_long = models.DecimalField(decimal_places=5, max_digits=10)
 	loc_lat = models.DecimalField(decimal_places=5, max_digits=10)
+	current = models.BooleanField(default=False)
 
 
 	def create(serilizzer):

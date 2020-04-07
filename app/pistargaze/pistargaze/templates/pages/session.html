@@ -63,6 +63,8 @@ function grabGPS() {
 }
 
 
+past_pk = "";
+
 
 
 ////////////Load Sessions
@@ -77,7 +79,7 @@ function load_session_table()
 				outhtml = "";
 				for( i = 0; i < data.length; i++)
 				{
-					outhtml += '<div id="sessions_row" onClick="session_click_handler("' + data[i]['pk'] +'">Name: <span id="session_name">' +  data[i]['name'] +'</span><br>Date: <span id="session_date">' + data[i]['date'] + '</span><br>Location: <span id="session_loc">' + data[i]['loc_long'] + " " + data[i]['loc_lat']+'</span><hr></div>'
+					outhtml += '<div id="sessions_row_' + data[i]['pk'] + '" onClick=\'session_click_handler("' + data[i]['pk'] +'");\'>Name: <span id="session_name">' +  data[i]['name'] +'</span><br>Date: <span id="session_date">' + data[i]['date'] + '</span><br>Location: <span id="session_loc">' + data[i]['loc_long'] + " " + data[i]['loc_lat']+'</span><hr></div>'
 		
 				}
 
@@ -107,7 +109,7 @@ $('#save_new_session').click( function() {
 	console.log(JSON.stringify(data_post));
 
 	$.ajax({
-		url: '/api/session',
+		url: '/api/session/',
 		type: 'post',
 		dataType: "json",
 		contentType:"application/json; charset=utf-8",
@@ -123,7 +125,50 @@ $('#save_new_session').click( function() {
 	});
 });
 
+function session_click_handler(pk)
+{
+	$('#sessions_row_' + past_pk).removeClass('bg-light');
+	past_pk = pk;
+	$('#sessions_row_' + pk).addClass('bg-light');
+	$.ajax({
+		url: '/api/session/' + pk + '/',
+		type: 'get',
+		dataType: "json",
+		success: function(data)
+		{
+			$("#detail_name").html(data['name']);
+			$("#detail_date").html(data['date']);
+			$('#detail_set').attr("onclick","setCurrent('" + data['pk'] + "');");
+			if(data['current'])
+			{
+				$('#detail_current').html("True");
+			}
+			else
+			{
+				$('#detail_current').html("False");
+			}
+			
 
+		}
+	});
+}
+
+
+function setCurrent(pk)
+{
+		$.ajax({
+		url: '/api/session/' + pk + '/setcurrent',
+		type: 'get',
+		dataType: "json",
+		success: function(data)
+		{
+			$("#detail_current").html('True');
+			
+
+		}
+	});
+
+}
 
 </script>
 
@@ -260,6 +305,7 @@ hr {
 	<div id='sessions_details'>
 		Name: <span id='detail_name'></span><br>
 		Date: <span id='detail_date'></span><br>
+		Current: <span id='detail_current'></span><br>
 		Number of Exposure Frames: <span id='detail_expose'></span> <br>
 		Number of Dark Frames: <span id='detail_dark'></span> <br>
 		<button id='detail_set' class="btn btn-primary">Set Current</button>
