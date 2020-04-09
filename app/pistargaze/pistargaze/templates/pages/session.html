@@ -77,13 +77,25 @@ function load_session_table()
 			success: function(data)
 			{
 				outhtml = "";
+				current_pk = ""
 				for( i = 0; i < data.length; i++)
 				{
+
 					outhtml += '<div id="sessions_row_' + data[i]['pk'] + '" onClick=\'session_click_handler("' + data[i]['pk'] +'");\'>Name: <span id="session_name">' +  data[i]['name'] +'</span><br>Date: <span id="session_date">' + data[i]['date'] + '</span><br>Location: <span id="session_loc">' + data[i]['loc_long'] + " " + data[i]['loc_lat']+'</span><hr></div>'
-		
+					if(data[i]['current'])
+					{
+						current_pk = data[i]['pk'];
+					}
+					
 				}
 
 				$("#sessions_container").html(outhtml);
+
+				if(data.length >= 1)
+				{
+						session_click_handler(current_pk);
+
+				}
 			}
 		});
 }
@@ -139,6 +151,7 @@ function session_click_handler(pk)
 			$("#detail_name").html(data['name']);
 			$("#detail_date").html(data['date']);
 			$('#detail_set').attr("onclick","setCurrent('" + data['pk'] + "');");
+			$('#detail_delete').attr("onclick","deleteCurrent('" + data['pk'] + "');");
 			if(data['current'])
 			{
 				$('#detail_current').html("True");
@@ -152,6 +165,8 @@ function session_click_handler(pk)
 		}
 	});
 }
+
+
 
 
 function setCurrent(pk)
@@ -168,6 +183,22 @@ function setCurrent(pk)
 		}
 	});
 
+}
+
+function deleteCurrent(pk)
+{
+
+		$.ajax({
+		url: '/api/session/' + pk + '/',
+		type: 'delete',
+		dataType: "json",
+		success: function(data)
+		{
+			session_click_handler(past_pk);
+			load_session_table();
+
+		}
+	});
 }
 
 </script>
