@@ -22,7 +22,7 @@ class Session(models.Model):
 
 
 	def __str__(self):
-		return "{0} - {1}".format(name,date)
+		return "{0} - {1}".format(self.name,self.date)
 
 
 class KVStore(models.Model):
