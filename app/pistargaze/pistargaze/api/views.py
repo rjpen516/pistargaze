@@ -456,7 +456,7 @@ class CameraCapture(APIView):
 			current_session = Session.objects.get(current=True)
 
 			photo_data = Photo()
-			photo_data.session.add(current_session)
+
 			photo_data.token = filename_hex
 			photo_data.file = '{0}'.format(photoFile)
 			loc = None
@@ -473,6 +473,8 @@ class CameraCapture(APIView):
 			photo_data.time = packet.get_time()
 
 			photo_data.save()
+
+			photo_data.session.add(current_session)
 
 
 
