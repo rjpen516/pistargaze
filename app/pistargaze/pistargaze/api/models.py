@@ -21,6 +21,10 @@ class Session(models.Model):
 		pass
 
 
+	def __str__(self):
+		return "{0} - {1}".format(name,date)
+
+
 class KVStore(models.Model):
 	key = models.CharField(max_length=128)
 	value = models.TextField()
