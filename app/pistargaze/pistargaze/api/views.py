@@ -451,8 +451,12 @@ class CameraCapture(APIView):
 				imageio.imsave('/data/capture/current.jpg', thumb.data)
 
 
+			#we need to look up the current session
+
+			current_session = Session.objects.get(current=True)
 
 			photo_data = Photo()
+			photo_data.current = current_session
 			photo_data.token = filename_hex
 			photo_data.file = '{0}'.format(photoFile)
 			loc = None
