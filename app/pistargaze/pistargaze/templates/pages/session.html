@@ -174,18 +174,18 @@ function session_click_handler(pk)
 		{
 			$('#detail_expose').html(data['exposure'].length);
 			length_max = data['exposure'].length;
-			if(data['exposure'].length > 3){
-				length_max = 3;
+			if(data['exposure'].length > 10){
+				length_max = 10;
 			}
+			output = ""
 			for(var i = 0; i < length_max; i++)
 			{
-				$('#detail_photo_' + i).attr("src", "/api/photo/" + data['exposure'][i]['token'] + "/");
+				
+				output += '<img id="detail_photo_0" class="thumbnail" src="/api/photo/"' + data['exposure'][i]['token'] + '"/">';
 			}
 
-			for(var i = length_max ; i < 3; i++)
-			{
-				$('#detail_photo_' + i).attr("src", "#");
-			}
+			$("detail_photo_row").html(output);
+
 
 
 
@@ -372,8 +372,6 @@ hr {
 		<div id="detail_photo_container">
 			<div id="detail_photo_row">
 				<img id="detail_photo_0" class="thumbnail" src="#">
-				<img id="detail_photo_1" class="thumbnail" src="#">
-				<img id="detail_photo_2" class="thumbnail" src="#">
 			</div>
 		</div>
 		<!-- Button trigger modal -->
