@@ -392,6 +392,29 @@ class SessionPhotos(APIView):
 		return Response({'exposure': output})
 
 
+class PhotosLookup(APIView):
+	queryset = Photo.objects.all()
+	permission_classes = [ AllowAny ]
+	def get(self, request, token, format=None):
+
+
+		photo_path = Photo.objects.get(token=token).path
+
+		with rawpy.imread(photo_path) as raw:
+			thumb = raw.extract_thumb()
+			if thumb.format == rawpy.ThumbFormat.JPEG:
+				# thumb.data is already in JPEG format, save as-is
+				jpg = thumb.data
+			elif thumb.format == rawpy.ThumbFormat.BITMAP:
+				# thumb.data is an RGB numpy array, convert with imageio
+				jpg =  thumb.data
+
+
+		return HttpResponse(jpg,content_type="image/jpg")
+
+
+
+
 
 class Sessions(mixins.RetrieveModelMixin,
 	generics.ListCreateAPIView):
