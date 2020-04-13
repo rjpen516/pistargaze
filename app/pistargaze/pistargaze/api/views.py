@@ -389,7 +389,7 @@ class SessionPhotos(APIView):
 			output.append({'path': photo.file, 'token': photo.token, 'time': photo.time})
 
 
-		return({'photos': output})
+		return Response({'photos': output})
 
 
 
