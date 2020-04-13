@@ -398,7 +398,7 @@ class PhotosLookup(APIView):
 	def get(self, request, token, format=None):
 
 
-		photo_path = Photo.objects.get(token=token).path
+		photo_path = Photo.objects.get(token=token).file
 
 		with rawpy.imread(photo_path) as raw:
 			thumb = raw.extract_thumb()
