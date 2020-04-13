@@ -382,7 +382,7 @@ class SessionPhotos(APIView):
 
 		session = Session.objects.get(pk=pk)
 
-		photos = Photos.objects.filter(session=session)
+		photos = Photo.objects.filter(session=session)
 		output = []
 
 		for photo in photos:
