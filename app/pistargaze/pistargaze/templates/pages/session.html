@@ -181,7 +181,7 @@ function session_click_handler(pk)
 			for(var i = 0; i < length_max; i++)
 			{
 				
-				output += '<img id="detail_photo_0" class="thumbnail" src="/api/photo/"' + data['exposure'][i]['token'] + '"/">';
+				output += '<img id="detail_photo_0" class="thumbnail" src="/api/photo/' + data['exposure'][i]['token'] + '/">';
 			}
 
 			$("#detail_photo_row").html(output);
