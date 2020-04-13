@@ -374,6 +374,25 @@ class SessionNewAPI(APIView):
 			return Response({'success': True})
 		return Response({'success': False})
 
+
+class SessionPhotos(APIView):
+
+	def get(self, request, pk, format=None):
+
+
+		session = Session.objects.get(pk=pk)
+
+		photos = Photos.objects.filter(session=session)
+		output = []
+
+		for photo in photos:
+			output.append({'path': photo.file, 'token': photo.token, 'time': photo.time})
+
+
+		return({'photos': output})
+
+
+
 class Sessions(mixins.RetrieveModelMixin,
 	generics.ListCreateAPIView):
 
