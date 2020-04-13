@@ -6,6 +6,8 @@ import time
 
 import os
 
+from .tasks import run_simple_expose
+
 
 from datetime import datetime
 from django.http import Http404
@@ -17,7 +19,7 @@ from rest_framework import generics
 from rest_framework import mixins
 import time
 
-from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew, SessionQuery
+from .serializers import CommandSerializer, GPSSerializer, MovementSerializer, CaptureSerializer, CaptureCalibrate, CameraCaptureApi, SessionNew, SessionQuery, ExposeSession
 
 import gpsd
 import json
@@ -412,6 +414,12 @@ class PhotosLookup(APIView):
 
 		return HttpResponse(jpg,content_type="image/jpg")
 
+
+class CaptureExposures(APIView):
+	serializer_class = ExposeSession
+
+	def post(self, request, format=None):
+		run_simple_expose(4,2)
 
 
 
