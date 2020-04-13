@@ -164,6 +164,17 @@ function session_click_handler(pk)
 
 		}
 	});
+
+
+	$.ajax({
+		url: '/api/session/' + pk + '/photos', 
+		type: 'get', 
+		dataType: "json", 
+		success: function(data)
+		{
+			$('#detail_expose').html(data['exposure'].length);
+		}
+	})
 }
 
 
