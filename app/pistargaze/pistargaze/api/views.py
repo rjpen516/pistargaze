@@ -419,7 +419,9 @@ class CaptureExposures(APIView):
 	serializer_class = ExposeSession
 
 	def post(self, request, format=None):
-		run_simple_expose(4,2)
+		run_simple_expose.delay(4,2)
+
+		return Response({'success': True, 'jobid': 0})
 
 
 

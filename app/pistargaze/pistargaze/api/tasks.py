@@ -2,7 +2,7 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
 
-from celery import shared_task
+from celery import shared_task, task
 from .models import Photo, Session
 
 from pistargaze.utils.CaptureBridge import CaptureBridge
@@ -22,7 +22,7 @@ def add(x, y):
 
 
 
-@shared_task
+@task(soft_time_limit=45*60, time_limit=50*60)
 def run_simple_expose(number, delay):
 
 	capture = CaptureBridge()
