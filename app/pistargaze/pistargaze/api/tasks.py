@@ -29,7 +29,7 @@ def run_simple_expose(number, delay):
 
 	capture = CaptureBridge()
 
-	current_session = Session.objects.filter(current=True)
+	current_session = Session.objects.filter(current=True).pk
 
 
 	for iteration in range(0,number):
