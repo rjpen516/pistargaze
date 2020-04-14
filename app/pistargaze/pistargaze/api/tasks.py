@@ -40,7 +40,7 @@ def run_simple_expose(number, delay):
 
 		filename_hex = m.hexdigest()
 
-		processing = True:
+		processing = True
 
 		while processing:
 			try:
