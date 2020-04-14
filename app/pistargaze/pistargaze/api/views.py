@@ -419,7 +419,12 @@ class CaptureExposures(APIView):
 	serializer_class = ExposeSession
 
 	def post(self, request, format=None):
-		run_simple_expose.delay(4,2)
+
+
+		data = ExposeSession(data=request)
+
+		if datat.is_valid():
+			run_simple_expose.delay(data.photos,data.delay)
 
 		return Response({'success': True, 'jobid': 0})
 
@@ -444,7 +449,7 @@ class SeesionsCurrent(APIView):
 
 	def get(self, request,pk, format=None):
 
-		currents = Session.objects.filter(current=True);
+		currents = Session.objects.filter(current=True)
 
 
 		for current in currents:

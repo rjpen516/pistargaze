@@ -13,6 +13,8 @@ from datetime import datetime
 
 import time
 
+import gpsd
+
 
 
 
@@ -27,6 +29,8 @@ def run_simple_expose(number, delay):
 
 	capture = CaptureBridge()
 
+	current_session = Session.objects.filter(current=True)
+
 
 	for iteration in range(0,number):
 
@@ -36,7 +40,41 @@ def run_simple_expose(number, delay):
 
 		filename_hex = m.hexdigest()
 
-		photoFile = capture.capture("{0}.cr2".format(filename_hex))
+		processing = True:
+
+		while processing:
+			try:
+				photoFile = capture.capture("{0}.cr2".format(filename_hex))
+				processing = False
+			except Exception:
+				time.sleep(1)
+				pass
+
+
+
+
+
+
+		photo_data = Photo()
+
+		photo_data.token = filename_hex
+		photo_data.file = '{0}'.format(photoFile)
+		loc = None
+		try:
+			gpsd.connect()
+			packet = gpsd.get_current()
+			loc = packet.position()
+		except Exception:
+			loc = [0,0]
+
+
+		photo_data.loc_long = loc[0]
+		photo_data.loc_lat = loc[1]
+		photo_data.time = packet.get_time()
+
+		photo_data.save()
+
+		photo_data.session.add(current_session)
 
 		time.sleep(delay)
 
