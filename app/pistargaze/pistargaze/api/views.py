@@ -421,7 +421,7 @@ class CaptureExposures(APIView):
 	def post(self, request, format=None):
 
 
-		data = ExposeSession(data=request)
+		data = ExposeSession(data=request.data)
 
 		if data.is_valid():
 			run_simple_expose.delay(data.photos,data.delay)
