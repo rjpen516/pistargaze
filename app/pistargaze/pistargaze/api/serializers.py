@@ -63,7 +63,7 @@ class SessionQuery(serializers.Serializer):
 
 
 class ExposeSession(serializers.Serializer):
-	photos = serializers.IntegerField()
-	delay = serializers.IntegerField()
-	
+	photos = serializers.IntegerField(min_value=1, max_value=100)
+	delay = serializers.IntegerField(min_value=3, max_value=30)
+
 
