@@ -423,7 +423,7 @@ class CaptureExposures(APIView):
 
 		data = ExposeSession(data=request)
 
-		if datat.is_valid():
+		if data.is_valid():
 			run_simple_expose.delay(data.photos,data.delay)
 
 		return Response({'success': True, 'jobid': 0})
