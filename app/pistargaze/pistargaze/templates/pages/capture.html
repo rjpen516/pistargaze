@@ -195,7 +195,7 @@ $.ajax({
         type: 'post',
         dataType: "json",
 		contentType:"application/json; charset=utf-8",
-        data: JSON.stringify({"photos": int($("#buttonNumberPhotos").val()), "delay": int($("#buttonSecondsExpose").val())}),
+        data: JSON.stringify({"photos": parseInt($("#buttonNumberPhotos").val()), "delay": parseInt($("#buttonSecondsExpose").val())}),
         success: function(json) {
         	$('#log').text("");
         	$('#log').append(JSON.stringify(json) + "<br>");
