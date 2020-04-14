@@ -64,13 +64,15 @@ def run_simple_expose(number, delay):
 			gpsd.connect()
 			packet = gpsd.get_current()
 			loc = packet.position()
+			time = packet.get_time()
 		except Exception:
 			loc = [0,0]
+			time = "00000000"
 
 
 		photo_data.loc_long = loc[0]
 		photo_data.loc_lat = loc[1]
-		photo_data.time = packet.get_time()
+		photo_data.time = time
 
 		photo_data.save()
 
