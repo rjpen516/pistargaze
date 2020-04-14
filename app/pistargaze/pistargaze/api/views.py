@@ -531,7 +531,7 @@ class CameraCapture(APIView):
 
 			photo_data.save()
 
-			photo_data.session.add(current_session)
+			photo_data.session.add(current_session.pk)
 
 
 
