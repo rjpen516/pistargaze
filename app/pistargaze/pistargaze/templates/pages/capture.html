@@ -191,9 +191,9 @@ latestImageCapture = Date.now();
 
 
 $.ajax({
-        url: '/api/command/camera/capture',
+        url: '/api/command/delay',
         type: 'post',
-        data: {"expose": 30},
+        data: {"photos": 5, "delay": 10},
         success: function(json) {
         	$('#log').text("");
         	$('#log').append(JSON.stringify(json) + "<br>");
@@ -371,6 +371,8 @@ $("#capture").attr("src", "http://" + window.location.hostname + ":8090/camera.w
 		<button id='buttonAnalysis' type="button" class="btn btn-info">Analysis</button> - See what was in the last capture <br>
 		<button id='buttonCalabrate' type="button" class="btn btn-info">Calabrate</button> - Update telescope position to last image captured <br>
 		<button id='buttontlive' type="button" class="btn btn-secondary">Start Live Stream</button> - Start/End Live Stream <br>
+		Number of Photos: <input id="buttonNumberPhotos" type="number" value="1" min="1" max="100" step="1"/><br>
+		Seconds Expose: <input id="buttonSecondsExpose" type="number" value="1" min="0" max="30" step="1"/><br>
 
 		<div id='log'></div>
 	</div>

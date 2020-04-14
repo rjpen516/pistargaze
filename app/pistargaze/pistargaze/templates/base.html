@@ -121,7 +121,11 @@
       
       <script src="{% static 'js/project.js' %}"></script>
        <script src="{% static 'js/index.min.js' %}"></script>
-      
+       <script src="{% static 'js/input_spinner.js' %}"></script>
+
+       <script>
+    $("input[type='number']").inputSpinner()
+</script>
 
     {% endblock javascript %}
   </body>
