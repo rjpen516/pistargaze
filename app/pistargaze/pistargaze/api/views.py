@@ -426,8 +426,8 @@ class CaptureExposures(APIView):
 		if data.is_valid():
 			run_simple_expose.delay(data.photos,data.delay)
 
-		return Response({'success': True, 'jobid': 0})
-
+			return Response({'success': True, 'jobid': 0})
+		return Response({'success': False, 'message': "Invalid Data"})
 
 
 
