@@ -29,7 +29,7 @@ def run_simple_expose(number, delay):
 
 	capture = CaptureBridge()
 
-	current_session = Session.objects.filter(current=True).id
+	current_session = Session.objects.filter(current=True)
 
 
 	for iteration in range(0,number):
@@ -76,7 +76,7 @@ def run_simple_expose(number, delay):
 
 		photo_data.save()
 
-		photo_data.session.add(current_session)
+		photo_data.session.add(current_session.id)
 
 		time.sleep(delay)
 
