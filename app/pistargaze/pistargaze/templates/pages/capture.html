@@ -191,7 +191,7 @@ latestImageCapture = Date.now();
 
 
 $.ajax({
-        url: '/api/command/delay',
+        url: '/api/capture/delay/',
         type: 'post',
         data: {"photos": 5, "delay": 10},
         success: function(json) {
