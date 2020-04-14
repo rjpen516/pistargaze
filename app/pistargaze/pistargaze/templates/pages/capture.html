@@ -193,7 +193,9 @@ latestImageCapture = Date.now();
 $.ajax({
         url: '/api/capture/delay/',
         type: 'post',
-        data: {"photos": $("#buttonNumberPhotos").value, "delay": $("#buttonSecondsExpose").value},
+        dataType: "json",
+		contentType:"application/json; charset=utf-8",
+        data: JSON.stringify({"photos": $("#buttonNumberPhotos").value, "delay": $("#buttonSecondsExpose").value}),
         success: function(json) {
         	$('#log').text("");
         	$('#log').append(JSON.stringify(json) + "<br>");
