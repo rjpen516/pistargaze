@@ -69,7 +69,7 @@ def run_simple_expose(number, delay):
 						imageio.imsave('/data/capture/current_large.jpg', thumb.data)
 
 				basewidth = 300
-				 img = Image.open('/data/capture/current_large.jpg')
+				img = Image.open('/data/capture/current_large.jpg')
 
 				wpercent = (basewidth / float(img.size[0]))
 				hsize = int((float(img.size[1]) * float(wpercent)))
