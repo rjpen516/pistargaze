@@ -105,6 +105,7 @@ dataRetrivelService = setInterval(function(){
 
 		if(streamstate == "stopped" &&  Date.now() - latestImageCapture > 3000)
 		{
+			latestImageCapture = Date.now()
 			nonce = Math.floor(Math.random() * 1000000000000) + 1
 			$('#video_preview_image').html('<img id="image_capture" src="/api/capture/latest?' + nonce  + ' width="320" height="240" />');
 		}
