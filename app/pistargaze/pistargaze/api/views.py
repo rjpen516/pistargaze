@@ -231,7 +231,7 @@ class CaptureAnalysis(APIView):
 					image_data = thumb.data
 
 		except Exception:
-			path = os.path.join(settings.ROOT_DIR,"pistargaze/static/images/img1.jpg")
+			path = os.path.join(settings.ROOT_DIR,"/data/capture/current.jpg")
 			image_data = open(path, "rb")
 
 
