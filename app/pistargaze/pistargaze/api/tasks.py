@@ -60,7 +60,7 @@ def run_simple_expose(number, delay):
 				with rawpy.imread(photoFile) as raw:
 					thumb = raw.extract_thumb()
 					if thumb.format == rawpy.ThumbFormat.JPEG:
-						Image.frombuffer()
+						
 						# thumb.data is already in JPEG format, save as-is
 						with open('/data/capture/current_large.jpg', 'wb') as f:
 							f.write(thumb.data)
