@@ -15,6 +15,9 @@ import time
 
 import gpsd
 
+import traceback
+import sys
+
 
 
 
@@ -58,13 +61,10 @@ def run_simple_expose(number, delay):
 						# thumb.data is an RGB numpy array, convert with imageio
 						imageio.imsave('/data/capture/current.jpg', thumb.data)
 
-			except Exception:
+			except Exception as err:
+				traceback.print_tb(err.__traceback__)
 				time.sleep(delay)
 				pass
-
-
-
-
 
 
 		photo_data = Photo()
