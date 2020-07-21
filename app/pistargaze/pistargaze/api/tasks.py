@@ -21,6 +21,9 @@ import sys
 import rawpy
 import imageio
 
+from PIL import Image
+import PIL
+
 
 
 
@@ -57,12 +60,22 @@ def run_simple_expose(number, delay):
 				with rawpy.imread(photoFile) as raw:
 					thumb = raw.extract_thumb()
 					if thumb.format == rawpy.ThumbFormat.JPEG:
+						Image.frombuffer()
 						# thumb.data is already in JPEG format, save as-is
-						with open('/data/capture/current.jpg', 'wb') as f:
+						with open('/data/capture/current_large.jpg', 'wb') as f:
 							f.write(thumb.data)
 					elif thumb.format == rawpy.ThumbFormat.BITMAP:
 						# thumb.data is an RGB numpy array, convert with imageio
-						imageio.imsave('/data/capture/current.jpg', thumb.data)
+						imageio.imsave('/data/capture/current_large.jpg', thumb.data)
+
+				basewidth = 300
+				 img = Image.open('/data/capture/current_large.jpg')
+
+				wpercent = (basewidth / float(img.size[0]))
+				hsize = int((float(img.size[1]) * float(wpercent)))
+				img = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+				img.save('/data/capture/current.jpg')
+
 
 			except Exception as err:
 				print(traceback.format_exc())
