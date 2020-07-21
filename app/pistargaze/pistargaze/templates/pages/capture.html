@@ -103,7 +103,7 @@ dataRetrivelService = setInterval(function(){
 		//we update the display to the latest captured
 		$("#video_update").text("" + Math.floor((Date.now() - latestImageCapture)/1000)+ "s ago");
 
-		if(streamstate == "stopped")
+		if(streamstate == "stopped" && Math.floor((Date.now() - latestImageCapture)/1000)%3 == 0)
 		{
 			nonce = Math.floor(Math.random() * 1000000000000) + 1
 			$('#video_preview_image').html('<img id="image_capture" src="/api/capture/latest?' + nonce  + ' width="320" height="240" />');
