@@ -44,6 +44,7 @@ dataServiceResult = false;
 lastResult = null;
 
 latestImageCapture = -1;
+latestImageCapture_reload = 0
 
 streamstate = "stopped"
 
@@ -103,9 +104,9 @@ dataRetrivelService = setInterval(function(){
 		//we update the display to the latest captured
 		$("#video_update").text("" + Math.floor((Date.now() - latestImageCapture)/1000)+ "s ago");
 
-		if(streamstate == "stopped" &&  Date.now() - latestImageCapture > 3000)
+		if(streamstate == "stopped" &&  Date.now() - latestImageCapture_reload > 3000)
 		{
-			latestImageCapture = Date.now()
+			latestImageCapture_reload = Date.now()
 			nonce = Math.floor(Math.random() * 1000000000000) + 1
 			$('#video_preview_image').html('<img id="image_capture" src="/api/capture/latest?' + nonce  + ' width="320" height="240" />');
 		}
