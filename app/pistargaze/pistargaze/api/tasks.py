@@ -62,7 +62,7 @@ def run_simple_expose(number, delay):
 						imageio.imsave('/data/capture/current.jpg', thumb.data)
 
 			except Exception as err:
-				traceback.print_tb(err.__traceback__)
+				traceback.format_exc()
 				time.sleep(delay)
 				pass
 
