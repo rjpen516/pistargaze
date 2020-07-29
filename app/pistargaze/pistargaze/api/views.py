@@ -54,7 +54,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 import zipfile
-import StringIO
+import io
 
 
 class CommandTelescope(APIView):
@@ -243,10 +243,10 @@ class CaptureAnalysis(APIView):
 		request_json = {"publicly_visible": "y", "allow_modifications": "y", "allow_commercial_use": "y"}
 
 		multipart_data = MultipartEncoder( 
- 	    fields={ 
-	     'request-json': json.dumps(request_json), 
-	     'file': ('image.jpg', image_data, 'application/octet-stream') 
-	    })   
+		fields={ 
+		 'request-json': json.dumps(request_json), 
+		 'file': ('image.jpg', image_data, 'application/octet-stream') 
+		})   
 
 		response = requests.post("http://nova:8000/api/upload", data=multipart_data, headers={'Content-Type': multipart_data.content_type}) 
 		try:
@@ -414,9 +414,28 @@ class SessionExport(APIView):
 			file_paths[photo.file] = {'order': file_index, 'time': photo.time, 'long': photo.loc_long, 'lat': photo.loc_lat}
 			file_index+=1
 
+		zip_filename = "export_{}.zip".format(session.name.lower().replace(' ','_'))
+		s = io.BytesIO()
 
+		zf = zipfile.ZipFile(s,"w")
 
-		return Response({'exposure': output})
+		index_file = "name, time, long, lat"
+
+		for file in file_paths.keys():
+			zf.write(file, 'light_{0}'.format(file_paths[file]['order']))
+			index_file += "light_{0}, {1}, {2}, {3}\n".format(file_paths[file]['order'], file_paths[file]['time'], file_paths[file]['long'], file_paths[file]['lat'])
+
+		index_file_fp = open('/tmp/index', 'w+')
+		index_file_fp.write(index_file)
+		index_file.fp.close()
+
+		zf.write('/tmp/index', 'index.txt')
+		zf.close()
+
+    	response = HttpResponse(s.getvalue(), content_type='application/zip')
+    	response['Content-Disposition'] = 'attachment; filename={0}'.format(zip_filename)
+
+    	return response
 
 
 
