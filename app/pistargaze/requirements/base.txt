@@ -28,4 +28,3 @@ astropy
 #gps
 #gpsd-py3
 django-filter
-zipfile
