@@ -422,8 +422,8 @@ class SessionExport(APIView):
 		index_file = "name, time, long, lat\n"
 
 		for file in file_paths.keys():
-			zf.write(file, 'light_{0}'.format(file_paths[file]['order']))
-			index_file += "light_{0}, {1}, {2}, {3}\n".format(file_paths[file]['order'], file_paths[file]['time'], file_paths[file]['long'], file_paths[file]['lat'])
+			zf.write(file, 'light_{:04d}'.format(file_paths[file]['order']))
+			index_file += "light_{:04d}, {1}, {2}, {3}\n".format(file_paths[file]['order'], file_paths[file]['time'], file_paths[file]['long'], file_paths[file]['lat'])
 
 		index_file_fp = open('/tmp/index', 'w+')
 		index_file_fp.write(index_file)
