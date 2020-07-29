@@ -1,6 +1,6 @@
 
 
-cd /app/pistargaze/
+cd /app/
 
 #docker-compose -f local.yml build
 
