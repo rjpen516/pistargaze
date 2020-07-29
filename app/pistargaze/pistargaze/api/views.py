@@ -427,7 +427,7 @@ class SessionExport(APIView):
 
 		index_file_fp = open('/tmp/index', 'w+')
 		index_file_fp.write(index_file)
-		index_file.fp.close()
+		index_file_fp.close()
 
 		zf.write('/tmp/index', 'index.txt')
 		zf.close()
