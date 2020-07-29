@@ -23,6 +23,7 @@ urlpatterns = [
 	path(r'session/<str:pk>/', views.SessionsDetail.as_view(), name="SessionsDetail"),
 	path(r'session/<str:pk>/setcurrent', views.SeesionsCurrent.as_view(), name="SessionCurrent"),
 	path(r'session/<str:pk>/photos', views.SessionPhotos.as_view(), name="SessionPhotos"),
+	path(r'session/<str:pk>/export', views.SessionExport.as_view(), name="SessionExport"),
 	path(r'photo/<str:token>/', views.PhotosLookup.as_view(), name="PhotoView"),
 
 

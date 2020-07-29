@@ -53,6 +53,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
+import zipfile
+import StringIO
 
 
 class CommandTelescope(APIView):
@@ -392,6 +394,31 @@ class SessionPhotos(APIView):
 
 
 		return Response({'exposure': output})
+
+class SessionExport(APIView):
+
+	def get(self, request, pk, format=None):
+
+
+		session = Session.objects.get(pk=pk)
+
+		photos = Photo.objects.filter(session=session)
+		output = []
+
+		file_paths = {}
+
+		file_index = 0
+
+		for photo in photos:
+			#output.append({'path': photo.file, 'token': photo.token, 'time': photo.time})
+			file_paths[photo.file] = {'order': file_index, 'time': photo.time, 'long': photo.loc_long, 'lat': photo.loc_lat}
+			file_index+=1
+
+
+
+		return Response({'exposure': output})
+
+
 
 
 class PhotosLookup(APIView):
