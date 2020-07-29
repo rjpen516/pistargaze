@@ -432,10 +432,10 @@ class SessionExport(APIView):
 		zf.write('/tmp/index', 'index.txt')
 		zf.close()
 
-    	response = HttpResponse(s.getvalue(), content_type='application/zip')
-    	response['Content-Disposition'] = 'attachment; filename={0}'.format(zip_filename)
+		response = HttpResponse(s.getvalue(), content_type='application/zip')
+		response['Content-Disposition'] = 'attachment; filename={0}'.format(zip_filename)
 
-    	return response
+		return response
 
 
 
