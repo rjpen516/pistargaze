@@ -151,6 +151,7 @@ function session_click_handler(pk)
 			$("#detail_name").html(data['name']);
 			$("#detail_date").html(data['date']);
 			$('#detail_set').attr("onclick","setCurrent('" + data['pk'] + "');");
+			$('#detail_export').attr("onclick","window.open('/api/session/" + data['pk'] +"/export');");
 			$('#detail_delete').attr("onclick","deleteCurrent('" + data['pk'] + "');");
 			if(data['current'])
 			{
@@ -192,7 +193,6 @@ function session_click_handler(pk)
 		}
 	})
 }
-
 
 
 
@@ -367,6 +367,7 @@ hr {
 		Number of Exposure Frames: <span id='detail_expose'></span> <br>
 		Number of Dark Frames: <span id='detail_dark'></span> <br>
 		<button id='detail_set' class="btn btn-primary">Set Current</button>
+		<button id='detail_export' class='btn btn-primary'>Export</button>
 		<button id='detail_delete' class="btn btn-danger">Delete</button>
 		<br><br>
 		<div id="detail_photo_container">

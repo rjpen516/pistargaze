@@ -419,7 +419,7 @@ class SessionExport(APIView):
 
 		zf = zipfile.ZipFile(s,"w")
 
-		index_file = "name, time, long, lat"
+		index_file = "name, time, long, lat\n"
 
 		for file in file_paths.keys():
 			zf.write(file, 'light_{0}'.format(file_paths[file]['order']))
