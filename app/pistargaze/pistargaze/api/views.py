@@ -414,7 +414,7 @@ class SessionExport(APIView):
 			file_paths[photo.file] = {'order': file_index, 'time': photo.time, 'long': photo.loc_long, 'lat': photo.loc_lat}
 			file_index+=1
 
-		zip_filename = "export_{}.zip".format(session.name.lower().replace(' ','_'))
+		zip_filename = "export_{}.zip".format(session.name.lower().replace(' ','_').replace('-', ''))
 		s = io.BytesIO()
 
 		zf = zipfile.ZipFile(s,"w")
